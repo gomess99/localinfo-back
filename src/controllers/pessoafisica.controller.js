@@ -23,7 +23,7 @@ const create = async (req, res) => {
         name,
         username,
         email,
-        avatar
+        avatar,
       },
     });
   } catch (error) {

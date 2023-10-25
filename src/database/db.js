@@ -1,13 +1,28 @@
+import mongoose from "mongoose";
 
-import mongoose from "mongoose"; //importa a biblioteca do mongoose
-
-const connetcDatabase = () => {
+export const connectDatabase = () => {
     mongoose.connect(
-        process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true}
+        process.env.MONGODB_URI,
+        { useNewUrlParser: true, useUnifiedTopology: true }
     )
-    //exibi no terminal
-    .then(() => console.log("MongoDB conect"))
-    .catch((error) => console.log(error))
+    .then(() => console.log("MongoDB connected"))
+    .catch((error) => console.log(error));
 }
 
-export default connetcDatabase;
+export const connectDatabasePessoaFisica = () => {
+    mongoose.connect(
+        process.env.MONGODB_URI_PESSOA_FISICA,
+        { useNewUrlParser: true, useUnifiedTopology: true }
+    )
+    .then(() => console.log("MongoDB Pessoa Física connected"))
+    .catch((error) => console.log(error));
+}
+
+export const connectDatabasePessoaJuridica = () => {
+    mongoose.connect(
+        process.env.MONGODB_URI_PESSOA_JURIDICA,
+        { useNewUrlParser: true, useUnifiedTopology: true }
+    )
+    .then(() => console.log("MongoDB Pessoa Jurídica connected"))
+    .catch((error) => console.log(error));
+}
