@@ -1,5 +1,5 @@
 import {Router} from "express";
-import pessoafisicaController from "../controllers/pessoajuridica.controller.js"
+import pessoafisicaController from "../controllers/pessoafisica.controller.js"
 import { validId, validPessoaFisica } from "../middlewares/global.middlewares.js";
 
 const router = Router();

@@ -1,5 +1,5 @@
 import express from "express";
-import { connectDatabase, connectDatabasePessoaFisica, connectDatabasePessoaJuridica } from "./database/db.js";
+import connectDatabase  from "./database/db.js";
 import dotenv from "dotenv";
 
 import userRoute from "./routes/user.route.js"
@@ -12,11 +12,10 @@ dotenv.config();
 const port = process.env.PORT || 3010;
 const app = express();
 
-//connectDatabase();
-connectDatabasePessoaFisica();
-//connectDatabasePessoaJuridica();
+connectDatabase();
+
 app.use(express.json());
-app.use("/user", userRoute);
+//app.use("/user", userRoute);
 app.use("/pessoafisica", pessoafisicaRoute);
 app.use("/pessoajuridica", pessoajuridicaRoute);
 app.use("/auth", authRoute);
