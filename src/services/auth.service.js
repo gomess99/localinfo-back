@@ -1,5 +1,18 @@
+import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import PessoaFisica from '../models/PessoaFisica.js';
 
-const loginService = (email) => User.findOne({ email: email}).select("+password"); //aqui ele também trás a senha criptografada
+import PessoaJuridica from '../models/PessoaJuridica.js';
 
-export {loginService};
+const loginService = (email) => PessoaJuridica.findOne({ email: email}).select("+password"); //aqui ele também trás a senha criptografada
+
+//guarda a sessão do usuário, saber qual usuário está logado
+
+//ele vai criptografar alfum dado do usuário que estiver na função - playload
+
+//será a chave secreta que decodificará esse token, será usado a criptografica md5  - secreteOrPrivateKey
+
+// - options
+const generateToken = (id) => jwt.sign({id: id}, process.env.SECRET_JWT, {expiresIn: 86400});
+
+export {loginService, generateToken};
