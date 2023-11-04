@@ -12,7 +12,7 @@ const loginService = (email) => PessoaJuridica.findOne({ email: email}).select("
 
 //será a chave secreta que decodificará esse token, será usado a criptografica md5  - secreteOrPrivateKey
 
-// - options
+//foi usado o "expiresIn" ele coloca um tempo de expiração do token, em segudos - options
 const generateToken = (id) => jwt.sign({id: id}, process.env.SECRET_JWT, {expiresIn: 86400});
 
 export {loginService, generateToken};

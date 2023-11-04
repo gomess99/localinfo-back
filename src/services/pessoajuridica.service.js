@@ -6,7 +6,7 @@ const findAllService = () => PessoaJuridica.find();
 
 const findByIdService = (id) => PessoaJuridica.findById(id);
 
-const updateService = (id, name, username, email, password, avatar, redessociais, contatos, endereco) =>
+const updateService = (id, name, username, email, password, avatar, categoria, redessociais, contatos, endereco) =>
   PessoaJuridica.findOneAndUpdate(
     { _id: id },
     { name, 
@@ -14,6 +14,7 @@ const updateService = (id, name, username, email, password, avatar, redessociais
       email, 
       password, 
       avatar, 
+      categoria,
       redessociais, 
       contatos, 
       endereco }
