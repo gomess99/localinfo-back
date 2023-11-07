@@ -3,6 +3,24 @@ import {createService, findAllService} from "../services/planofree.service.js"
 const create = async (req, res) =>{
 
     try {
+        const { authorization } = req.headers;
+        
+        if(!authorization){
+            return res.send(401);
+        }
+
+        const parts = authorization.split(" ");
+
+        const [schema, token] = parts;
+
+        if (parts.length !==2) {
+            return res.send(401);
+        }
+
+        if(schema !== "Bearer"){
+            return res.send(401);
+        }
+
         const {carrossel, funcionamento} = req.body;
 
         if(!carrossel || !funcionamento){
