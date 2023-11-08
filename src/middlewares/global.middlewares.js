@@ -55,15 +55,15 @@ export const validPessoaJuridica = async (req, res, next) => {
     req.id = id;
     req.pessoajuridica = pessoajuridica;
 
-    // Preencha os campos da tabela PlanoFree conforme necessário
-    req.planoFreeData = {
-    name_pj: pessoajuridica.name,
-    avatar_pj: pessoajuridica.avatar,
-    redessociais_pj: pessoajuridica.redessociais,
-    contatos_pj: pessoajuridica.contatos,
-    endereco_pj: pessoajuridica.endereco,
-    // Outros campos de PlanoFree que você deseja preencher
-  };
+        // Preencha os campos da tabela PlanoFree conforme necessário
+    //     req.planoFreeData = {
+    //     name_pj: pessoajuridica.name,
+    //     avatar_pj: pessoajuridica.avatar,
+    //     redessociais_pj: pessoajuridica.redessociais,
+    //     contatos_pj: pessoajuridica.contatos,
+    //     endereco_pj: pessoajuridica.endereco,
+    //     // Outros campos de PlanoFree que você deseja preencher
+    //   };
 
     next();
 };

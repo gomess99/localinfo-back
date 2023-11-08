@@ -49,26 +49,6 @@ const PlanoFreeSchema = new mongoose.Schema({
   },
   carrossel: CarrosselSchema,
   funcionamento: FuncionamentolSchema,
-  name_pj: {
-    type: String,
-    required: false,
-  },
-  avatar_pj: {
-    type: String,
-    required: false,
-  },
-  redessociais_pj: {
-    type: Object,
-    required: false,
-  },
-  contatos_pj: {
-    type: Object,
-    required: false,
-  },
-  endereco_pj: {
-    type: Object,
-    required: false,
-  },
   pessoajuridica:{
     type: mongoose.Schema.Types.ObjectId,
     ref: "PessoaJuridica",
