@@ -14,5 +14,6 @@ const loginService = (email) => PessoaJuridica.findOne({ email: email}).select("
 
 //foi usado o "expiresIn" ele coloca um tempo de expiração do token, em segudos - options
 const generateToken = (id) => jwt.sign({id: id}, process.env.SECRET_JWT, {expiresIn: 86400});
+//tempo para expirar de 24h
 
 export {loginService, generateToken};
