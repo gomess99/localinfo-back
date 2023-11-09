@@ -3,9 +3,11 @@ import {
   findAllService,
   countPlanoFree,
   topPlanoFreeService,
+  findByIdService,
 } from "../services/planofree.service.js";
 
-const create = async (req, res) => {
+//cria os planos
+export const create = async (req, res) => {
   try {
     const { carrossel, funcionamento } = req.body;
 
@@ -27,7 +29,8 @@ const create = async (req, res) => {
   }
 };
 
-const findAll = async (req, res) => {
+//exibe todos os planos
+export const findAll = async (req, res) => {
   try {
     //paginação de dados, exibição de conteúdo aula #21
     let { limit, offset } = req.query;
@@ -90,7 +93,7 @@ const findAll = async (req, res) => {
 };
 
 //exibe a lista de planos free existentes
-const topPlanoFree = async (req, res) => {
+export const topPlanoFree = async (req, res) => {
   try {
     const planofree = await topPlanoFreeService();
 
@@ -118,4 +121,28 @@ const topPlanoFree = async (req, res) => {
   }
 };
 
-export { create, findAll, topPlanoFree };
+//exibe a lista de planos free existentes pelo id
+export const findById = async (req, res) => {
+    try{
+        const { id } = req.params;
+        const planofree = await findByIdService(id);
+        
+        return res.send({
+            planofree: {
+                id: planofree._id,
+                likes: planofree.likes,
+                carrossel: planofree.carrossel,
+                funcionamento: planofree.funcionamento,
+                name: planofree.pessoajuridica.name,
+                avatar: planofree.pessoajuridica.avatar,
+                redessociais: planofree.pessoajuridica.redessociais,
+                contatos: planofree.pessoajuridica.contatos,
+                endereco: planofree.pessoajuridica.endereco,
+            },
+
+        })
+    } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
