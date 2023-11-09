@@ -8,8 +8,12 @@ const findAllService = (offset, limit) => PlanoFree.find().sort({_id: -1}).skip(
 //conta quantos há nessa function
 const countPlanoFree = () => PlanoFree.countDocuments();
 
+//exibirá a partir do primeiro intem da lista de planosfree
+const topPlanoFreeService = () => PlanoFree.findOne().sort({_id: -1}).populate("pessoajuridica");
+
 export{
     createService,
     findAllService,
-    countPlanoFree
+    countPlanoFree,
+    topPlanoFreeService
 }
