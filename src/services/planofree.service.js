@@ -13,3 +13,9 @@ export const topPlanoFreeService = () => PlanoFree.findOne().sort({_id: -1}).pop
 
 //pega informações em PlanoFree pelo id e o usuário atrelado a esse id
 export const findByIdService = (id) => PlanoFree.findById(id).populate("pessoajuridica");
+
+//fará o filtro por categoria
+export const searchByCategoriaService = (categoria) =>PlanoFree.find({
+    categoria: {$regex: `${categoria || ``}`, $options: "i"},
+    //esse dois parâmetros significam, respectivamente, que  o usuário não precisa digitar o texto completo para buscar o que deseja e o outro ele não coloca diferença de maiúsculas e minúsculas
+}).sort({_id: -1}).populate("pessoajuridica");

@@ -4,6 +4,7 @@ import {
   countPlanoFree,
   topPlanoFreeService,
   findByIdService,
+  searchByCategoriaService,
 } from "../services/planofree.service.js";
 
 //cria os planos
@@ -47,7 +48,7 @@ export const findAll = async (req, res) => {
       offset = 0;
     }
 
-    const pessoajuridica = await findAllService(offset, limit);
+    const planofree = await findAllService(offset, limit);
     const total = await countPlanoFree();
     const currentUrl = req.baseUrl;
 
@@ -64,8 +65,6 @@ export const findAll = async (req, res) => {
       previous != null
         ? `${currentUrl}?limit=${limit}&offset=${previous}`
         : null;
-
-    const planofree = await findAllService();
     if (planofree.length === 0) {
       return res.status(400).send({ message: "Nenhum Plano Free encontrado" });
     }
@@ -81,6 +80,7 @@ export const findAll = async (req, res) => {
         carrossel: item.carrossel,
         funcionamento: item.funcionamento,
         name: item.pessoajuridica.name,
+        categoria: item.pessoajuridica.categoria,
         avatar: item.pessoajuridica.avatar,
         redessociais: item.pessoajuridica.redessociais,
         contatos: item.pessoajuridica.contatos,
@@ -110,6 +110,7 @@ export const topPlanoFree = async (req, res) => {
         carrossel: planofree.carrossel,
         funcionamento: planofree.funcionamento,
         name: planofree.pessoajuridica.name,
+        categoria: planofree.pessoajuridica.categoria,
         avatar: planofree.pessoajuridica.avatar,
         redessociais: planofree.pessoajuridica.redessociais,
         contatos: planofree.pessoajuridica.contatos,
@@ -123,26 +124,58 @@ export const topPlanoFree = async (req, res) => {
 
 //exibe a lista de planos free existentes pelo id
 export const findById = async (req, res) => {
-    try{
-        const { id } = req.params;
-        const planofree = await findByIdService(id);
-        
-        return res.send({
-            planofree: {
-                id: planofree._id,
-                likes: planofree.likes,
-                carrossel: planofree.carrossel,
-                funcionamento: planofree.funcionamento,
-                name: planofree.pessoajuridica.name,
-                avatar: planofree.pessoajuridica.avatar,
-                redessociais: planofree.pessoajuridica.redessociais,
-                contatos: planofree.pessoajuridica.contatos,
-                endereco: planofree.pessoajuridica.endereco,
-            },
+  try {
+    const { id } = req.params;
+    const planofree = await findByIdService(id);
 
-        })
-    } catch (err) {
+    return res.send({
+      planofree: {
+        id: planofree._id,
+        likes: planofree.likes,
+        carrossel: planofree.carrossel,
+        funcionamento: planofree.funcionamento,
+        name: planofree.pessoajuridica.name,
+        categoria: planofree.pessoajuridica.categoria,
+        avatar: planofree.pessoajuridica.avatar,
+        redessociais: planofree.pessoajuridica.redessociais,
+        contatos: planofree.pessoajuridica.contatos,
+        endereco: planofree.pessoajuridica.endereco,
+      },
+    });
+  } catch (err) {
     res.status(500).send({ message: err.message });
   }
 };
 
+export const searchByCategoria = async (req, res) => {
+  try {
+    const { categoria } = req.query;
+
+    const planofree = await searchByCategoriaService(categoria);
+
+    if (categoria.length === 0) {
+      return res
+        .status(400)
+        .send({
+          message: "Não existe nenhum estabelecimento com essa caracteristica",
+        });
+    }
+
+    return res.send({
+      results: planofree.map((item) => ({
+        id: item._id,
+        likes: item.likes,
+        carrossel: item.carrossel,
+        funcionamento: item.funcionamento,
+        name: item.pessoajuridica.name,
+        categoria: item.pessoajuridica.categoria,
+        avatar: item.pessoajuridica.avatar,
+        redessociais: item.pessoajuridica.redessociais,
+        contatos: item.pessoajuridica.contatos,
+        endereco: item.pessoajuridica.endereco,
+      })),
+    });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
