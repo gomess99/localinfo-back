@@ -5,6 +5,7 @@ import {
   topPlanoFreeService,
   findByIdService,
   searchByCategoriaService,
+  byPessoaJuridicaService,
 } from "../services/planofree.service.js";
 
 //cria os planos
@@ -180,3 +181,28 @@ export const searchByCategoria = async (req, res) => {
     res.status(500).send({ message: err.message });
   }
 };
+
+//buscar o plano free de um usuário pelo id, se ouver outros estabelecimentos desse usuário será mostrado também
+export const byPessoaJuridica = async (req, res) =>{
+    try{
+        const id = req.userId;
+        const planofree = await byPessoaJuridicaService(id);
+
+        return res.send({
+            results: planofree.map((item) => ({
+              id: item._id,
+              categoria: item.categoria,
+              likes: item.likes,
+              carrossel: item.carrossel,
+              funcionamento: item.funcionamento,
+              name: item.pessoajuridica.name,
+              avatar: item.pessoajuridica.avatar,
+              redessociais: item.pessoajuridica.redessociais,
+              contatos: item.pessoajuridica.contatos,
+              endereco: item.pessoajuridica.endereco,
+            })),
+        });
+    } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+}

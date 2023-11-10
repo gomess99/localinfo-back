@@ -19,3 +19,6 @@ export const searchByCategoriaService = (categoria) =>PlanoFree.find({
     categoria: {$regex: `${categoria || ``}`, $options: "i"},
     //esse dois parâmetros significam, respectivamente, que  o usuário não precisa digitar o texto completo para buscar o que deseja e o outro ele não coloca diferença de maiúsculas e minúsculas
 }).sort({_id: -1}).populate("pessoajuridica");
+
+//busca por id da pessoa juridica e trazer seus estabelecimentos
+export const byPessoaJuridicaService = (id) => PlanoFree.find({pessoajuridica: id}).sort({_id: -1}).populate("pessoajuridica");
