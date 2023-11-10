@@ -7,6 +7,7 @@ import {
   searchByCategoriaService,
   byPessoaJuridicaService,
   updatePlanoFreeService,
+  erasePlanoFreeService,
 } from "../services/planofree.service.js";
 
 //cria os planos
@@ -234,6 +235,28 @@ export const updatePlanoFree = async (req, res) =>{
       return res.send({message: "Publicação alterada com sucesso"})
 
     } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}
+
+export const erasePlanoFree = async(req, res)=>{
+    try{
+        const { id } = req.params;
+
+        const planofree = await findByIdService(id);
+
+        if(String(planofree.pessoajuridica._id) !== req.userId){
+            return res.status(400).send({
+                message: "Você não pode deletar nesse publicação"
+            });
+        }
+
+        await erasePlanoFreeService(id);
+        return res.send({
+            message: "Você deletou essa divulgação"
+        })
+
+    }catch (err) {
         res.status(500).send({ message: err.message });
     }
 }

@@ -1,7 +1,7 @@
 import { Router } from "express";
 const router = Router();
 
-import { create, findAll, topPlanoFree, findById, searchByCategoria, byPessoaJuridica, updatePlanoFree} from "../controllers/planofree.controllers.js"
+import { create, findAll, topPlanoFree, findById, searchByCategoria, byPessoaJuridica, updatePlanoFree, erasePlanoFree} from "../controllers/planofree.controllers.js"
 import { autMiddleware } from "../middlewares/auth.middlewares.js";
 
 //rotas de busca
@@ -16,6 +16,7 @@ router.get("/:id", autMiddleware, findById)
 //rotas de modificação
 
 router.patch("/:id", autMiddleware, updatePlanoFree);
+router.delete("/:id", autMiddleware, erasePlanoFree);
 
 
 

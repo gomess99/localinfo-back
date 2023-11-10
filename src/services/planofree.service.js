@@ -30,5 +30,6 @@ export const updatePlanoFreeService = (id, categoria, carrossel, funcionamento) 
     {
         rawResult: true, //escreve o resultado
     }
-    
     );
+
+export const erasePlanoFreeService = (id) => PlanoFree.findOneAndDelete({_id: id,});
