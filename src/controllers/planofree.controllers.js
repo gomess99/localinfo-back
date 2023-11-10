@@ -10,15 +10,16 @@ import {
 //cria os planos
 export const create = async (req, res) => {
   try {
-    const { carrossel, funcionamento } = req.body;
+    const { categoria, carrossel, funcionamento } = req.body;
 
-    if (!carrossel || !funcionamento) {
+    if (!categoria || !carrossel || !funcionamento) {
       return res.status(400).send({
         message: "Preencha todos os campos",
       });
     }
 
     await createService({
+      categoria,
       carrossel,
       funcionamento,
       pessoajuridica: req.userId,
@@ -74,13 +75,13 @@ export const findAll = async (req, res) => {
       limit,
       offset,
       total,
-      results: pessoajuridica.map((item) => ({
+      results: planofree.map((item) => ({
         id: item._id,
-        likes: item.likes,
+        categoria: item.categoria,
         carrossel: item.carrossel,
+        likes: item.likes,
         funcionamento: item.funcionamento,
         name: item.pessoajuridica.name,
-        categoria: item.pessoajuridica.categoria,
         avatar: item.pessoajuridica.avatar,
         redessociais: item.pessoajuridica.redessociais,
         contatos: item.pessoajuridica.contatos,
@@ -106,11 +107,11 @@ export const topPlanoFree = async (req, res) => {
     res.send({
       planofree: {
         id: planofree._id,
+        categoria: planofree.categoria,
         likes: planofree.likes,
         carrossel: planofree.carrossel,
         funcionamento: planofree.funcionamento,
         name: planofree.pessoajuridica.name,
-        categoria: planofree.pessoajuridica.categoria,
         avatar: planofree.pessoajuridica.avatar,
         redessociais: planofree.pessoajuridica.redessociais,
         contatos: planofree.pessoajuridica.contatos,
@@ -131,11 +132,11 @@ export const findById = async (req, res) => {
     return res.send({
       planofree: {
         id: planofree._id,
+        categoria: planofree.categoria,
         likes: planofree.likes,
         carrossel: planofree.carrossel,
         funcionamento: planofree.funcionamento,
         name: planofree.pessoajuridica.name,
-        categoria: planofree.pessoajuridica.categoria,
         avatar: planofree.pessoajuridica.avatar,
         redessociais: planofree.pessoajuridica.redessociais,
         contatos: planofree.pessoajuridica.contatos,
@@ -164,11 +165,11 @@ export const searchByCategoria = async (req, res) => {
     return res.send({
       results: planofree.map((item) => ({
         id: item._id,
+        categoria: item.categoria,
         likes: item.likes,
         carrossel: item.carrossel,
         funcionamento: item.funcionamento,
         name: item.pessoajuridica.name,
-        categoria: item.pessoajuridica.categoria,
         avatar: item.pessoajuridica.avatar,
         redessociais: item.pessoajuridica.redessociais,
         contatos: item.pessoajuridica.contatos,

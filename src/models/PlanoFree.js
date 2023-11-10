@@ -28,35 +28,38 @@ const CarrosselSchema = new mongoose.Schema({
 });
 
 const FuncionamentolSchema = new mongoose.Schema({
-    dia: {
-      type: String,
-      required: false,
-    },
-    hora: {
-      type: String,
-      required: false,
-    },
-    feriado: {
-      type: String,
-      required: false,
-    },
-  });
+  dia: {
+    type: String,
+    required: false,
+  },
+  hora: {
+    type: String,
+    required: false,
+  },
+  feriado: {
+    type: String,
+    required: false,
+  },
+});
 
 const PlanoFreeSchema = new mongoose.Schema({
+  categoria: {
+    type: String,
+    required: true,
+  },
   likes: {
     type: Array,
     require: true,
   },
   carrossel: CarrosselSchema,
   funcionamento: FuncionamentolSchema,
-  pessoajuridica:{
+  pessoajuridica: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "PessoaJuridica",
-    required: true
-  }
+    required: true,
+  },
 });
 
 const PlanoFree = mongoose.model("PlanoFree", PlanoFreeSchema);
 
 export default PlanoFree;
-

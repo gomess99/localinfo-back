@@ -58,10 +58,6 @@ const PessoaJuridicaSchema = new mongoose.Schema({
     required: true,
     select: false, //não retorna a senha em alguma consulta
   },
-  categoria: {
-    type: String,
-    required: true,
-  },
   avatar: {
     type: String,
     required: true,

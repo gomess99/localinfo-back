@@ -4,9 +4,9 @@ import pessoajuridicaService from "../services/pessoajuridica.service.js";
 
 const create = async (req, res) => {
   try {
-    const { name, username, email, password, avatar, categoria, redessociais, contatos, endereco } = req.body;
+    const { name, username, email, password, avatar, redessociais, contatos, endereco } = req.body;
 
-    if (!name || !username || !email || !password || !avatar || !categoria || !redessociais || !contatos || !endereco) {
+    if (!name || !username || !email || !password || !avatar || !redessociais || !contatos || !endereco) {
       res
         .status(400)
         .send({ message: "Nem todos os componentes estão preenchidos" });
@@ -26,7 +26,6 @@ const create = async (req, res) => {
         username,
         email,
         avatar,
-        categoria,
         redessociais,
         contatos,
         endereco,
@@ -66,9 +65,9 @@ const findById = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const { name, username, email, password, avatar, categoria, redessociais, contatos, endereco } = req.body;
+    const { name, username, email, password, avatar, redessociais, contatos, endereco } = req.body;
 
-    if (!name && !username && !email && !password && !avatar && !categoria && !redessociais && !contatos && !endereco) {
+    if (!name && !username && !email && !password && !avatar && !redessociais && !contatos && !endereco) {
       res
         .status(400)
         .send({
@@ -85,7 +84,6 @@ const update = async (req, res) => {
       email,
       password,
       avatar,
-      categoria,
       redessociais,
       contatos,
       endereco
