@@ -6,6 +6,7 @@ import {
   findByIdService,
   searchByCategoriaService,
   byPessoaJuridicaService,
+  updatePlanoFreeService,
 } from "../services/planofree.service.js";
 
 //cria os planos
@@ -205,4 +206,34 @@ export const byPessoaJuridica = async (req, res) =>{
     } catch (err) {
     res.status(500).send({ message: err.message });
   }
+}
+
+//atualização
+export const updatePlanoFree = async (req, res) =>{
+    try{
+      const { categoria, carrossel, funcionamento} = req.body;
+      const { id } = req.params;
+
+      if(!categoria && !carrossel && !funcionamento){
+        res.status(400).send({
+            message: "Escolha um campo para fazer alteração"
+        });
+      }
+
+      //aqui faz a busca para encontrar se a pessoa que está fazendo a alteração realmente é o proprietário do plano
+      const planofree = await findByIdService(id);
+
+      if(String(planofree.pessoajuridica._id) !== req.userId){
+        res.status(400).send({
+            message: "Você não pode dá update nesse publicação"
+        });
+      }
+
+      await updatePlanoFreeService(id, categoria, carrossel, funcionamento);
+
+      return res.send({message: "Publicação alterada com sucesso"})
+
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
 }

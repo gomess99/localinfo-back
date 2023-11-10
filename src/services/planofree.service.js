@@ -22,3 +22,13 @@ export const searchByCategoriaService = (categoria) =>PlanoFree.find({
 
 //busca por id da pessoa juridica e trazer seus estabelecimentos
 export const byPessoaJuridicaService = (id) => PlanoFree.find({pessoajuridica: id}).sort({_id: -1}).populate("pessoajuridica");
+
+//atualização de dados
+export const updatePlanoFreeService = (id, categoria, carrossel, funcionamento) => PlanoFree.findOneAndUpdate(
+    {_id: id},
+    { categoria, carrossel, funcionamento},
+    {
+        rawResult: true, //escreve o resultado
+    }
+    
+    );
