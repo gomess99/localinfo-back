@@ -33,3 +33,13 @@ export const updatePlanoFreeService = (id, categoria, carrossel, funcionamento) 
     );
 
 export const erasePlanoFreeService = (id) => PlanoFree.findOneAndDelete({_id: id,});
+
+export const likesPlanoFreeService = (idPlanoFree, userId) => PlanoFree.findOneAndUpdate(
+    { _id: idPlanoFree, "likes.userId": { $nin: [userId]}},
+    { $push: {likes: {userId, created: new Date()}}}
+);
+
+export const deletelikesPlanoFreeService = (idPlanoFree, userId) => PlanoFree.findOneAndUpdate(
+    { _id: idPlanoFree},
+    { $pull: {likes: {userId}}}
+);

@@ -8,6 +8,8 @@ import {
   byPessoaJuridicaService,
   updatePlanoFreeService,
   erasePlanoFreeService,
+  likesPlanoFreeService,
+  deletelikesPlanoFreeService,
 } from "../services/planofree.service.js";
 
 //cria os planos
@@ -158,11 +160,9 @@ export const searchByCategoria = async (req, res) => {
     const planofree = await searchByCategoriaService(categoria);
 
     if (categoria.length === 0) {
-      return res
-        .status(400)
-        .send({
-          message: "Não existe nenhum estabelecimento com essa caracteristica",
-        });
+      return res.status(400).send({
+        message: "Não existe nenhum estabelecimento com essa caracteristica",
+      });
     }
 
     return res.send({
@@ -185,78 +185,95 @@ export const searchByCategoria = async (req, res) => {
 };
 
 //buscar o plano free de um usuário pelo id, se ouver outros estabelecimentos desse usuário será mostrado também
-export const byPessoaJuridica = async (req, res) =>{
-    try{
-        const id = req.userId;
-        const planofree = await byPessoaJuridicaService(id);
+export const byPessoaJuridica = async (req, res) => {
+  try {
+    const id = req.userId;
+    const planofree = await byPessoaJuridicaService(id);
 
-        return res.send({
-            results: planofree.map((item) => ({
-              id: item._id,
-              categoria: item.categoria,
-              likes: item.likes,
-              carrossel: item.carrossel,
-              funcionamento: item.funcionamento,
-              name: item.pessoajuridica.name,
-              avatar: item.pessoajuridica.avatar,
-              redessociais: item.pessoajuridica.redessociais,
-              contatos: item.pessoajuridica.contatos,
-              endereco: item.pessoajuridica.endereco,
-            })),
-        });
-    } catch (err) {
+    return res.send({
+      results: planofree.map((item) => ({
+        id: item._id,
+        categoria: item.categoria,
+        likes: item.likes,
+        carrossel: item.carrossel,
+        funcionamento: item.funcionamento,
+        name: item.pessoajuridica.name,
+        avatar: item.pessoajuridica.avatar,
+        redessociais: item.pessoajuridica.redessociais,
+        contatos: item.pessoajuridica.contatos,
+        endereco: item.pessoajuridica.endereco,
+      })),
+    });
+  } catch (err) {
     res.status(500).send({ message: err.message });
   }
-}
+};
 
 //atualização
-export const updatePlanoFree = async (req, res) =>{
-    try{
-      const { categoria, carrossel, funcionamento} = req.body;
-      const { id } = req.params;
+export const updatePlanoFree = async (req, res) => {
+  try {
+    const { categoria, carrossel, funcionamento } = req.body;
+    const { id } = req.params;
 
-      if(!categoria && !carrossel && !funcionamento){
-        res.status(400).send({
-            message: "Escolha um campo para fazer alteração"
-        });
-      }
-
-      //aqui faz a busca para encontrar se a pessoa que está fazendo a alteração realmente é o proprietário do plano
-      const planofree = await findByIdService(id);
-
-      if(String(planofree.pessoajuridica._id) !== req.userId){
-        res.status(400).send({
-            message: "Você não pode dá update nesse publicação"
-        });
-      }
-
-      await updatePlanoFreeService(id, categoria, carrossel, funcionamento);
-
-      return res.send({message: "Publicação alterada com sucesso"})
-
-    } catch (err) {
-        res.status(500).send({ message: err.message });
+    if (!categoria && !carrossel && !funcionamento) {
+      res.status(400).send({
+        message: "Escolha um campo para fazer alteração",
+      });
     }
-}
 
-export const erasePlanoFree = async(req, res)=>{
-    try{
-        const { id } = req.params;
+    //aqui faz a busca para encontrar se a pessoa que está fazendo a alteração realmente é o proprietário do plano
+    const planofree = await findByIdService(id);
 
-        const planofree = await findByIdService(id);
-
-        if(String(planofree.pessoajuridica._id) !== req.userId){
-            return res.status(400).send({
-                message: "Você não pode deletar nesse publicação"
-            });
-        }
-
-        await erasePlanoFreeService(id);
-        return res.send({
-            message: "Você deletou essa divulgação"
-        })
-
-    }catch (err) {
-        res.status(500).send({ message: err.message });
+    if (String(planofree.pessoajuridica._id) !== req.userId) {
+      res.status(400).send({
+        message: "Você não pode dá update nesse publicação",
+      });
     }
-}
+
+    await updatePlanoFreeService(id, categoria, carrossel, funcionamento);
+
+    return res.send({ message: "Publicação alterada com sucesso" });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+export const erasePlanoFree = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const planofree = await findByIdService(id);
+
+    if (String(planofree.pessoajuridica._id) !== req.userId) {
+      return res.status(400).send({
+        message: "Você não pode deletar nesse publicação",
+      });
+    }
+
+    await erasePlanoFreeService(id);
+    return res.send({
+      message: "Você deletou essa divulgação",
+    });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+export const likesPlanoFree = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.userId;
+
+    const planofreeLiked = await likesPlanoFreeService(id, userId);
+
+    if(!planofreeLiked){
+        await deletelikesPlanoFreeService(id, userId);
+        return res.status(200).send({message: "Like Removido"});
+    }
+
+    return res.status(200).send({message: "Like"});
+
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
