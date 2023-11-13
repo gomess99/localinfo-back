@@ -10,12 +10,12 @@
     },
     "servers": [
         {
-            "url": "http://localhost:3000",
+            "url": "http://localhost:3010",
             "description": "Local"
         }
     ],
     "paths": {
-        "/pessoafisica/create": {
+        "/pessoafisica/": {
             "post": {
                 "summary": "Create a new legal physical user",
                 "description": "Route responsible for creating a new physical user",
@@ -86,7 +86,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/User"
+                                        "$ref": "#/components/schemas/PessoaFisica"
                                     }
                                 }
                             }
@@ -129,7 +129,7 @@
                             "application/json": {
                                 "schema": {
                                     "type": "object",
-                                    "$ref": "#/components/schemas/User"
+                                    "$ref": "#/components/schemas/PessoaFisica"
                                 }
                             }
                         }
@@ -187,7 +187,7 @@
                             "application/json": {
                                 "schema": {
                                     "type": "object",
-                                    "$ref": "#/components/schemas/User"
+                                    "$ref": "#/components/schemas/PessoaFisica"
                                 }
                             }
                         }
@@ -196,8 +196,8 @@
             }
         },
 
-        
-        "/pessoajuridica/create": {
+
+        "/pessoajuridica/": {
             "post": {
                 "summary": "Create a new legal legal user",
                 "description": "Route responsible for creating a new legal user",
@@ -392,7 +392,7 @@
         },
 
 
-        "/auth/login": {
+        "/auth": {
             "post": {
                 "summary": "Login to Local Info",
                 "description": "Route responsible for logging in a registered user",
@@ -428,12 +428,12 @@
         },
 
 
-        "/planofree/create": {
+        "/planofree/": {
             "post": {
                 "summary": "Create a new free plan",
                 "description": "Route responsible for creating a new free plan",
                 "tags": [
-                    "Post"
+                    "PlanoFree"
                 ],
                 "security": [
                     {
@@ -496,7 +496,7 @@
                 "summary": "Search all free plan",
                 "description": "Route responsible for fetching all free plan",
                 "tags": [
-                    "Post"
+                    "PlanoFree"
                 ],
                 "parameters": [
                     {
@@ -535,7 +535,7 @@
                 "summary": "Search top free plan",
                 "description": "Route responsible for fetching top free plan",
                 "tags": [
-                    "Post"
+                    "PlanoFree"
                 ],
                 "responses": {
                     "400": {
@@ -560,7 +560,7 @@
                 "summary": "Search posts by categoria",
                 "description": "Route responsible for fetching the posts that match the categoria sent via query params",
                 "tags": [
-                    "Post"
+                    "PlanoFree"
                 ],
                 "parameters": [
                     {
@@ -595,7 +595,7 @@
                 "summary": "Search post by id",
                 "description": "Route responsible for fetching post by id",
                 "tags": [
-                    "Post"
+                    "PlanoFree"
                 ],
                 "security": [
                     {
@@ -637,7 +637,7 @@
                 "summary": "Search posts by use id",
                 "description": "Route responsible for fetching posts by use id",
                 "tags": [
-                    "Post"
+                    "PlanoFree"
                 ],
                 "responses": {
                     "400": {
@@ -667,7 +667,7 @@
                 "summary": "Update a free plan",
                 "description": "Route responsible for updating a free plan",
                 "tags": [
-                    "Post"
+                    "PlanoFree"
                 ],
                 "security": [
                     {
@@ -714,7 +714,7 @@
                             "application/json": {
                                 "schemma": {
                                     "type": "object",
-                                    "$ref": "#/components/schemas/Post"
+                                    "$ref": "#/components/schemas/PlanoFree"
                                 }
                             }
                         }
@@ -727,7 +727,7 @@
                 "summary": "Delete a free plan",
                 "description": "Route responsible for deleting a free plan",
                 "tags": [
-                    "Post"
+                    "PlanoFree"
                 ],
                 "security": [
                     {
@@ -761,7 +761,7 @@
                 "summary": "Like a free plan",
                 "description": "Route responsible for liking a free plan",
                 "tags": [
-                    "Post"
+                    "PlanoFree"
                 ],
                 "security": [
                     {

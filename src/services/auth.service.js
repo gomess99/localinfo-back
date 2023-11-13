@@ -4,7 +4,8 @@ import PessoaFisica from '../models/PessoaFisica.js';
 
 import PessoaJuridica from '../models/PessoaJuridica.js';
 
-const loginService = (email) => PessoaJuridica.findOne({ email: email}).select("+password"); //aqui ele também trás a senha criptografada
+const loginServicePessoaFisica = (email) => PessoaFisica.findOne({ email: email}).select("+password")
+const loginServicePessoaJuridica = (email) => PessoaJuridica.findOne({ email: email}).select("+password"); //aqui ele também trás a senha criptografada
 
 //guarda a sessão do usuário, saber qual usuário está logado
 
@@ -16,4 +17,4 @@ const loginService = (email) => PessoaJuridica.findOne({ email: email}).select("
 const generateToken = (id) => jwt.sign({id: id}, process.env.SECRET_JWT, {expiresIn: 86400});
 //tempo para expirar de 24h
 
-export {loginService, generateToken};
+export {loginServicePessoaJuridica, loginServicePessoaFisica, generateToken};
