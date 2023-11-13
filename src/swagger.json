@@ -1,0 +1,929 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Local Info",
+        "description": "In this documentation you will be able to consult the API end-points and also test all available routes. Do not forget to register and carry out the authorization.",
+        "contact": {
+            "email": "gabriel.g.c.profissional@outlook.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "Local"
+        }
+    ],
+    "paths": {
+        "/pessoafisica/create": {
+            "post": {
+                "summary": "Create a new legal physical user",
+                "description": "Route responsible for creating a new physical user",
+                "tags": [
+                    "PessoaFisica"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PessoaFisica"
+                            },
+                            "examples": {
+                                "PessoaFisica": {
+                                    "value": {
+                                        "name": "Gabriel Gomes",
+                                        "username": "ggomes99",
+                                        "email": "gabriel@gmail.com",
+                                        "password": "123",
+                                        "avatar": "https://i.imgur.com/Ry1cb5M.png"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schemma": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/PessoaFisica"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pessoafisica": {
+            "get": {
+                "summary": "Search all physical users",
+                "description": "Route responsible for fetching all physical users",
+                "tags": [
+                    "PessoaFisica"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pessoafisica/findById/{id}": {
+            "get": {
+                "summary": "Search physical user by id",
+                "description": "Route responsible for searching for physical user by id",
+                "tags": [
+                    "PessoaFisica"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "PessoaFisica ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pessoafisica/update/{id}": {
+            "patch": {
+                "summary": "Update physical user by id",
+                "description": "Route responsible for editing the physical user by id",
+                "tags": [
+                    "PessoaFisica"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "PessoaFisica ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PessoaFisica"
+                            },
+                            "examples": {
+                                "Users": {
+                                    "value": {
+                                        "name": "Gabriel Cerqueira"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        
+        "/pessoajuridica/create": {
+            "post": {
+                "summary": "Create a new legal legal user",
+                "description": "Route responsible for creating a new legal user",
+                "tags": [
+                    "PessoaJuridica"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PessoaJuridica"
+                            },
+                            "examples": {
+                                "PessoaFisica": {
+                                    "value": {
+                                        "name": "Warllen Barreto",
+                                        "username": "warllen24",
+                                        "email": "warllen@gmail.com",
+                                        "password": "123",
+                                        "avatar": "https://i.imgur.com/Ry1cb5M.png",
+                                        "redessociais": {
+                                            "instagram": "instagram.com/nome",
+                                            "facebook": "facebook.com/nome",
+                                            "twitter": "twitter.com/nome"
+                                        },
+                                        "contatos": {
+                                            "celular": "987654321",
+                                            "telefone": "987654888"
+                                        },
+                                        "endereco": {
+                                            "endereco1": "Rua Nova, 321, Areal",
+                                            "endereco2": "Rua Maria da Glória, 123, Centro"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schemma": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/PessoaJuridica"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pessoajuridica": {
+            "get": {
+                "summary": "Search all legal users",
+                "description": "Route responsible for fetching all legal users",
+                "tags": [
+                    "PessoaJuridica"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PessoaJuridica"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pessoajuridica/findById/{id}": {
+            "get": {
+                "summary": "Search physical user by id",
+                "description": "Route responsible for searching for physical user by id",
+                "tags": [
+                    "PessoaJuridica"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "PessoaJuridica ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/PessoaJuridica"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pessoajuridica/update/{id}": {
+            "patch": {
+                "summary": "Update physical user by id",
+                "description": "Route responsible for editing the physical user by id",
+                "tags": [
+                    "PessoaJuridica"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "PessoaJuridica ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PessoaJuridica"
+                            },
+                            "examples": {
+                                "Users": {
+                                    "value": {
+                                        "name": "Warllen Silva"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/PessoaJuridica"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+
+        "/auth/login": {
+            "post": {
+                "summary": "Login to Local Info",
+                "description": "Route responsible for logging in a registered user",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PessoaFisica"
+                            },
+                            "examples": {
+                                "User": {
+                                    "value": {
+                                        "email": "gabriel@gmail.com",
+                                        "password": "123"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+
+
+        "/planofree/create": {
+            "post": {
+                "summary": "Create a new free plan",
+                "description": "Route responsible for creating a new free plan",
+                "tags": [
+                    "Post"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PlanoFree"
+                            },
+                            "examples": {
+                                "Post": {
+                                    "value": {
+                                        "pessoajuridica": "",
+                                        "categoria": "Alimentação",
+                                        "likes": [],
+                                        "carrossel": {
+                                            "img1": "img1.png",
+                                            "img2": "img2.png",
+                                            "img3": "img3.png",
+                                            "img4": "img4.png",
+                                            "img5": "img5.png"
+                                        },
+                                        "funcionamento": {
+                                            "dia": "Aberto de Terça a Domingo",
+                                            "hora": "Das 17hs às 22hs",
+                                            "feriado": "Aberto aos feriados"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schemma": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/PlanoFree"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/planofree": {
+            "get": {
+                "summary": "Search all free plan",
+                "description": "Route responsible for fetching all free plan",
+                "tags": [
+                    "Post"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PlanoFree"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/planofree/top": {
+            "get": {
+                "summary": "Search top free plan",
+                "description": "Route responsible for fetching top free plan",
+                "tags": [
+                    "Post"
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schemma": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/PlanoFree"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/planofree/search": {
+            "get": {
+                "summary": "Search posts by categoria",
+                "description": "Route responsible for fetching the posts that match the categoria sent via query params",
+                "tags": [
+                    "Post"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "categoria",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PlanoFree"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/planofree/byIdPost/{id}": {
+            "patch": {
+                "summary": "Search post by id",
+                "description": "Route responsible for fetching post by id",
+                "tags": [
+                    "Post"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "PessoaJuridica ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schemma": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/PlanoFree"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/planofree/byUserId": {
+            "get": {
+                "summary": "Search posts by use id",
+                "description": "Route responsible for fetching posts by use id",
+                "tags": [
+                    "Post"
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PlanoFree"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/planofree/upadate/{id}": {
+            "patch": {
+                "summary": "Update a free plan",
+                "description": "Route responsible for updating a free plan",
+                "tags": [
+                    "Post"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "PessoaJuridica ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PlanoFree"
+                            },
+                            "examples": {
+                                "Post": {
+                                    "value": {
+                                        "categoria": "",
+                                        "carrossel": "",
+                                        "funcionamento": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schemma": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Post"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/planofree/delete/{id}": {
+            "delete": {
+                "summary": "Delete a free plan",
+                "description": "Route responsible for deleting a free plan",
+                "tags": [
+                    "Post"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "PessoaJuridica ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/planofree/{id}/like": {
+            "patch": {
+                "summary": "Like a free plan",
+                "description": "Route responsible for liking a free plan",
+                "tags": [
+                    "Post"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "User ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "schemas": {
+            "PessoaFisica": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PessoaJuridica": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "type": "string"
+                    },
+                    "redessociais": {
+                        "type": "object",
+                        "properties": {
+                            "instagram": {
+                                "type": "string"
+                            },
+                            "facebook": {
+                                "type": "string"
+                            },
+                            "twitter": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "contatos": {
+                        "type": "object",
+                        "properties": {
+                            "celular": {
+                                "type": "string"
+                            },
+                            "telefone": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "endereco": {
+                        "type": "object",
+                        "properties": {
+                            "endereco1": {
+                                "type": "string"
+                            },
+                            "endereco2": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "PlanoFree": {
+                "type": "object",
+                "properties": {
+                    "pessoajuridica": {
+                        "type": "string"
+                    },
+                    "categoria": {
+                        "type": "string"
+                    },
+                    "likes": {
+                        "type": "number"
+                    },
+                    "carrossel": {
+                        "type": "object",
+                        "properties": {
+                            "img1": {
+                                "type": "string"
+                            },
+                            "img2": {
+                                "type": "string"
+                            },
+                            "img3": {
+                                "type": "string"
+                            },
+                            "img4": {
+                                "type": "string"
+                            },
+                            "img5": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "funcionamento": {
+                        "type": "object",
+                        "properties": {
+                            "dia": {
+                                "type": "string"
+                            },
+                            "hora": {
+                                "type": "string"
+                            },
+                            "feriado": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
