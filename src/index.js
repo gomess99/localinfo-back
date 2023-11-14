@@ -7,7 +7,7 @@ import pessoafisicaRoute from "./routes/pessoafisica.route.js";
 import pessoajuridicaRoute from "./routes/pessoajuridica.route.js";
 import authRoute from "./routes/auth.route.js"
 import planofreeRoute from "./routes/planofree.route.js"
-import swaggerRoute from "./routes/swagger.route.js"
+import swaggerRoute from "./routes/swagger.route.cjs"
 
 dotenv.config();
 
