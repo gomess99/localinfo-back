@@ -10,8 +10,12 @@
     },
     "servers": [
         {
+            "url": "https://api-localinfo.onrender.com/",
+            "description": "Render Server"
+        },     
+        {
             "url": "http://localhost:3010",
-            "description": "Local"
+            "description": "Local Server"
         }
     ],
     "paths": {
