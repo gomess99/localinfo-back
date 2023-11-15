@@ -71,10 +71,10 @@ export const findAll = async (req, res) => {
       previous != null
         ? `${currentUrl}?limit=${limit}&offset=${previous}`
         : null;
-    if (planofree.length === 0) {
-      return res.status(400).send({ message: "Nenhum Plano Free encontrado" });
-    }
-    res.send({
+    
+    planofree.shift();
+
+    return res.send({
       nextUrl,
       previousUrl,
       limit,
