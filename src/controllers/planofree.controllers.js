@@ -80,17 +80,17 @@ export const findAll = async (req, res) => {
       limit,
       offset,
       total,
-      results: planofree.map((item) => ({
-        id: item._id,
-        categoria: item.categoria,
-        carrossel: item.carrossel,
-        likes: item.likes,
-        funcionamento: item.funcionamento,
-        name: item.pessoajuridica.name,
-        avatar: item.pessoajuridica.avatar,
-        redessociais: item.pessoajuridica.redessociais,
-        contatos: item.pessoajuridica.contatos,
-        endereco: item.pessoajuridica.endereco,
+      results: planofree.map((planofree) => ({
+        id: planofree._id,
+        categoria: planofree.categoria,
+        carrossel: planofree.carrossel,
+        likes: planofree.likes,
+        funcionamento: planofree.funcionamento,
+        name: planofree.pessoajuridica.name,
+        avatar: planofree.pessoajuridica.avatar,
+        redessociais: planofree.pessoajuridica.redessociais,
+        contatos: planofree.pessoajuridica.contatos,
+        endereco: planofree.pessoajuridica.endereco,
       })),
     });
   } catch (err) {
@@ -166,17 +166,17 @@ export const searchByCategoria = async (req, res) => {
     }
 
     return res.send({
-      results: planofree.map((item) => ({
-        id: item._id,
-        categoria: item.categoria,
-        likes: item.likes,
-        carrossel: item.carrossel,
-        funcionamento: item.funcionamento,
-        name: item.pessoajuridica.name,
-        avatar: item.pessoajuridica.avatar,
-        redessociais: item.pessoajuridica.redessociais,
-        contatos: item.pessoajuridica.contatos,
-        endereco: item.pessoajuridica.endereco,
+      results: planofree.map((planofree) => ({
+        id: planofree._id,
+        categoria: planofree.categoria,
+        likes: planofree.likes,
+        carrossel: planofree.carrossel,
+        funcionamento: planofree.funcionamento,
+        name: planofree.pessoajuridica.name,
+        avatar: planofree.pessoajuridica.avatar,
+        redessociais: planofree.pessoajuridica.redessociais,
+        contatos: planofree.pessoajuridica.contatos,
+        endereco: planofree.pessoajuridica.endereco,
       })),
     });
   } catch (err) {
@@ -191,17 +191,17 @@ export const byPessoaJuridica = async (req, res) => {
     const planofree = await byPessoaJuridicaService(id);
 
     return res.send({
-      results: planofree.map((item) => ({
-        id: item._id,
-        categoria: item.categoria,
-        likes: item.likes,
-        carrossel: item.carrossel,
-        funcionamento: item.funcionamento,
-        name: item.pessoajuridica.name,
-        avatar: item.pessoajuridica.avatar,
-        redessociais: item.pessoajuridica.redessociais,
-        contatos: item.pessoajuridica.contatos,
-        endereco: item.pessoajuridica.endereco,
+      results: planofree.map((planofree) => ({
+        id: planofree._id,
+        categoria: planofree.categoria,
+        likes: planofree.likes,
+        carrossel: planofree.carrossel,
+        funcionamento: planofree.funcionamento,
+        name: planofree.pessoajuridica.name,
+        avatar: planofree.pessoajuridica.avatar,
+        redessociais: planofree.pessoajuridica.redessociais,
+        contatos: planofree.pessoajuridica.contatos,
+        endereco: planofree.pessoajuridica.endereco,
       })),
     });
   } catch (err) {
