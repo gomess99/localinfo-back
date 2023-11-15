@@ -11,7 +11,7 @@ import swaggerRoute from "./routes/swagger.route.cjs"
 
 dotenv.config();
 
-const port = process.env.PORT || 3010;
+const port = process.env.PORT || 5173;
 const app = express();
 
 connectDatabase();

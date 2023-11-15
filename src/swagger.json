@@ -14,7 +14,7 @@
             "description": "Render Server"
         },     
         {
-            "url": "http://localhost:3010",
+            "url": "http://localhost:5173",
             "description": "Local Server"
         }
     ],
