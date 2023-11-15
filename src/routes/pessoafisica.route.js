@@ -2,12 +2,12 @@ import {Router} from "express";
 import pessoafisicaController from "../controllers/pessoafisica.controller.js"
 import { validId, validPessoaFisica } from "../middlewares/global.middlewares.js";
 
-const router = Router();
+const PessoaFisicaRoute = Router();
 
-router.post("/", pessoafisicaController.create); // cria users
-router.get("/", pessoafisicaController.findAll); // busca todo users
-router.get("/:id", validId, validPessoaFisica, pessoafisicaController.findById); // busca users id
-router.patch("/:id", validId, validPessoaFisica, pessoafisicaController.update);
+PessoaFisicaRoute.post("/", pessoafisicaController.create); // cria users
+PessoaFisicaRoute.get("/", pessoafisicaController.findAll); // busca todo users
+PessoaFisicaRoute.get("/:id", validId, validPessoaFisica, pessoafisicaController.findById); // busca users id
+PessoaFisicaRoute.patch("/:id", validId, validPessoaFisica, pessoafisicaController.update);
 
 
-export default router;
+export default PessoaFisicaRoute;

@@ -1,13 +1,13 @@
 import express from "express";
-import connectDatabase  from "./database/db.js";
+import connectDatabase  from "./src/database/db.js";
 import "dotenv/config";
 
-import userRoute from "./routes/user.route.js"
-import pessoafisicaRoute from "./routes/pessoafisica.route.js";
-import pessoajuridicaRoute from "./routes/pessoajuridica.route.js";
-import authRoute from "./routes/auth.route.js"
-import planofreeRoute from "./routes/planofree.route.js"
-import swaggerRoute from "./routes/swagger.route.cjs"
+import userRoute from "./src/routes/user.route.js"
+import pessoafisicaRoute from "./src/routes/pessoafisica.route.js";
+import pessoajuridicaRoute from "./src/routes/pessoajuridica.route.js";
+import authRoute from "./src/routes/auth.route.js"
+import planofreeRoute from "./src/routes/planofree.route.js"
+import swaggerRoute from "./src/routes/swagger.route.cjs"
 
 
 const port = process.env.PORT || 3010;

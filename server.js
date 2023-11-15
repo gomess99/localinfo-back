@@ -1,4 +1,4 @@
-
+//aqui sobe a aplicação
 import "dotenv/config";
 import app from "./app.js";
 
