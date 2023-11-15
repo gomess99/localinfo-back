@@ -1,6 +1,6 @@
 import express from "express";
 import connectDatabase  from "./database/db.js";
-import dotenv from "dotenv";
+import "dotenv/config";
 
 import userRoute from "./routes/user.route.js"
 import pessoafisicaRoute from "./routes/pessoafisica.route.js";
@@ -9,7 +9,6 @@ import authRoute from "./routes/auth.route.js"
 import planofreeRoute from "./routes/planofree.route.js"
 import swaggerRoute from "./routes/swagger.route.cjs"
 
-dotenv.config();
 
 const port = process.env.PORT || 3010;
 const app = express();
