@@ -34,7 +34,7 @@ const loginPessoaFisica = async (req, res) =>
     const{ email, password } = req.body;
 
     try{
-        const user = await loginServicePessoaJuridica(email); //busca o usuário no servidor pelo email
+        const user = await loginServicePessoaFisica(email); //busca o usuário no servidor pelo email
 
         //verifica se o usuário ou a senha estão ok
         if (!user) {
