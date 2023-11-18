@@ -31,7 +31,7 @@ const create = async (body) => {
       await pessoajuridicarepositories.findByEmailPessoaJuridicaRepository(email);
     if (foundPessoaJuridica) throw new Error("Perfil Jurídico existente")
 
-    const pessoajuridica = await pessoajuridicarepositories.createService(body); //cria o usuário no BD
+    const pessoajuridica = await pessoajuridicarepositories.createServiceRepository(body); //cria o usuário no BD
     if(!pessoajuridica) throw new Error("Erro ao criar pessoa juridica")
 
     const token = generateToken(pessoajuridica.id);

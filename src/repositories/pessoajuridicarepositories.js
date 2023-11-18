@@ -17,7 +17,7 @@ const updateServiceRepository = (
       body,
     },
     {
-        rawResult: true,
+      rawResult: true,
     }
   );
 

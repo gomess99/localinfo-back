@@ -396,12 +396,47 @@
         },
 
 
-        "/auth": {
+        "/auth/authpf": {
             "post": {
-                "summary": "Login to Local Info",
+                "summary": "Login Pessoa Física to Local Info",
                 "description": "Route responsible for logging in a registered user",
                 "tags": [
-                    "Auth"
+                    "AuthPessoaFisica"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PessoaFisica"
+                            },
+                            "examples": {
+                                "User": {
+                                    "value": {
+                                        "email": "gabriel@empresa.com",
+                                        "password": "123"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+
+        "/auth/authpj": {
+            "post": {
+                "summary": "Login Pessoa Jurídica to Local Info",
+                "description": "Route responsible for logging in a registered user",
+                "tags": [
+                    "AuthPessoaJuridica"
                 ],
                 "requestBody": {
                     "content": {

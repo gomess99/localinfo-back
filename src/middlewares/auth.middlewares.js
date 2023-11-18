@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 dotenv.config();
 
-export const autMiddlewarePessoaFuridica = (req, res, next) => {
+export const autMiddlewarePessoaJuridica = (req, res, next) => {
   try {
     const { authorization } = req.headers;
 
@@ -30,7 +30,7 @@ export const autMiddlewarePessoaFuridica = (req, res, next) => {
         return res.status(401).send({ message: "Token inválido" });
       }
 
-      const pessoajuridica = await pessoajuridicaService.findByIdService(
+      const pessoajuridica = await pessoajuridicaService.findById(
         decoded.id
       );
 

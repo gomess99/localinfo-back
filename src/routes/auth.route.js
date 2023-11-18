@@ -4,7 +4,8 @@ import {loginPessoaFisica, loginPessoaJuridica} from "../controllers/auth.contro
 
 const AuthRoute = Router();
 
-AuthRoute.post("/", loginPessoaFisica);
-AuthRoute.post("/", loginPessoaJuridica);
+AuthRoute.post("/authpj", loginPessoaJuridica);
+AuthRoute.post("/authpf", loginPessoaFisica);
+
 
 export default AuthRoute;

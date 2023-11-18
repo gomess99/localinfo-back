@@ -7,7 +7,7 @@ const create = async (req, res) => {
   const body = req.body;
 
   try {
-    const pessoajuridica = await pessoajuridicaService.createService(body); //cria o usuário no BD
+    const pessoajuridica = await pessoajuridicaService.create(body); //cria o usuário no BD
 
     return res.status(201).send(pessoajuridica);
   } catch (e) {
@@ -19,7 +19,7 @@ const create = async (req, res) => {
 
 const findAll = async (req, res) => {
   try {
-    const pessoajuridica = await pessoajuridicaService.findAll(pessoajuridica); //cria o usuário no BD
+    const pessoajuridica = await pessoajuridicaService.findAll(); //cria o usuário no BD
 
     return res.send(pessoajuridica);
   } catch (e) {

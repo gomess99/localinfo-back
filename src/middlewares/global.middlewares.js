@@ -47,7 +47,7 @@ export const validPessoaFisica = async (req, res, next) => {
 export const validPessoaJuridica = async (req, res, next) => {
     const id = req.params.id;
 
-    const pessoajuridica = await pessoajuridicaService.findByIdService(id);
+    const pessoajuridica = await pessoajuridicaService.findById(id);
 
     if (!pessoajuridica) {
         return res.status(400).send({ menssage: "Pessoa Jurídica não encontrado"})
