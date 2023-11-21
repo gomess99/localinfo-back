@@ -155,11 +155,11 @@ export const findById = async (req, res) => {
 
 export const searchByCategoria = async (req, res) => {
   try {
-    const { categoria, name } = req.query;
+    const { categoria } = req.query;
 
-    const planofree = await searchByCategoriaService(categoria, name);
+    const planofree = await searchByCategoriaService(categoria);
 
-    if (categoria.length === 0 || name.length === 0) {
+    if (categoria.length === 0) {
       return res.status(400).send({
         message: "Não existe nenhum estabelecimento com essa caracteristica",
       });
