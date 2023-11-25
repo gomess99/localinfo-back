@@ -596,15 +596,15 @@
         },
         "/planofree/search": {
             "get": {
-                "summary": "Search posts by categoria",
-                "description": "Route responsible for fetching the posts that match the categoria sent via query params",
+                "summary": "Search posts by name",
+                "description": "Route responsible for fetching the posts that match the name sent via query params",
                 "tags": [
                     "PlanoFree"
                 ],
                 "parameters": [
                     {
                         "in": "query",
-                        "name": "categoria",
+                        "name": "name",
                         "type": "string",
                         "required": true
                     }

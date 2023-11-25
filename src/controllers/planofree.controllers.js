@@ -4,7 +4,7 @@ import {
   countPlanoFree,
   topPlanoFreeService,
   findByIdService,
-  searchByCategoriaService,
+  searchByNameService,
   byPessoaJuridicaService,
   updatePlanoFreeService,
   erasePlanoFreeService,
@@ -153,13 +153,13 @@ export const findById = async (req, res) => {
   }
 };
 
-export const searchByCategoria = async (req, res) => {
+export const searchByName = async (req, res) => {
   try {
-    const { categoria } = req.query;
+    const { name } = req.query;
 
-    const planofree = await searchByCategoriaService(categoria);
+    const planofree = await searchByNameService(name);
 
-    if (categoria.length === 0) {
+    if (name.length === 0) {
       return res.status(400).send({
         message: "Não existe nenhum estabelecimento com essa caracteristica",
       });
