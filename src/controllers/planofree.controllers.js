@@ -159,7 +159,7 @@ export const searchByName = async (req, res) => {
 
     const planofree = await searchByNameService(name);
 
-    if (name.length === 0) {
+    if (planofree.length === 0) {
       return res.status(400).send({
         message: "Não existe nenhum estabelecimento com essa caracteristica",
       });
