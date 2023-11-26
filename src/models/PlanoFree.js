@@ -1,9 +1,5 @@
 import mongoose from "mongoose";
 
-//ATENÇÃO
-//PRECISAMOS PUXA O NAME,AVATAR, REDESSOCIAIS, CONTATOS, ENDERECO DE PESSOAJURIDICA
-//PARA PREENCHER OS COMPONENTES NAME_PJ, AVATAR_PJ, REDESSOCIAIS_PJ, CONTATOS_PJ, ENDERECO_PJ
-
 const CarrosselSchema = new mongoose.Schema({
   img1: {
     type: String,
@@ -27,7 +23,7 @@ const CarrosselSchema = new mongoose.Schema({
   },
 });
 
-const FuncionamentolSchema = new mongoose.Schema({
+const FuncionamentoSchema = new mongoose.Schema({
   dia: {
     type: String,
     required: false,
@@ -49,20 +45,28 @@ const PlanoFreeSchema = new mongoose.Schema({
   },
   likes: {
     type: Array,
-    require: true,
-  },
-  carrossel: CarrosselSchema,
-  funcionamento: FuncionamentolSchema,
-  name: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "PessoaJuridica",
     required: true,
   },
+  carrossel: CarrosselSchema,
+  funcionamento: FuncionamentoSchema,
   pessoajuridica: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "PessoaJuridica",
     required: true,
   },
+  name: {
+    type: String,
+    required: true,
+  },
+});
+
+// Adicionando um gancho (hook) para pré-salvar, que popula a propriedade "name" antes de salvar
+PlanoFreeSchema.pre("save", async function (next) {
+  // Populando o documento com os dados da PessoaJuridica antes de salvar
+  await this.populate("pessoajuridica", "name").execPopulate();
+  // Atribuindo o valor da propriedade "name" da PessoaJuridica à propriedade "name" do PlanoFree
+  this.name = this.pessoajuridica.name;
+  next();
 });
 
 const PlanoFree = mongoose.model("PlanoFree", PlanoFreeSchema);
