@@ -53,6 +53,11 @@ const PlanoFreeSchema = new mongoose.Schema({
   },
   carrossel: CarrosselSchema,
   funcionamento: FuncionamentolSchema,
+  name: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "PessoaJuridica",
+    required: true,
+  },
   pessoajuridica: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "PessoaJuridica",

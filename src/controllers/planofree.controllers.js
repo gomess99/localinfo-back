@@ -157,17 +157,13 @@ export const searchByName = async (req, res) => {
   try {
     const { name } = req.query;
 
-    // Adicione este log para verificar o valor do 'name' antes de realizar a busca
-    console.log("Valor do 'name' na busca:", name);
-
     const planofree = await searchByNameService(name);
-
-    // Adicione este log para verificar os resultados da busca antes de formatar a resposta
-    console.log("Resultados da busca:", planofree);
 
     if (planofree.length === 0) {
       return res.status(400).send({
         message: "Não existe nenhum estabelecimento com essa característica",
+        err1: console.log("Valor do 'name' na busca:", name),
+        err2: console.log("Resultados da busca:", planofree),
       });
     }
 
