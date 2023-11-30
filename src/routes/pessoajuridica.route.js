@@ -4,7 +4,7 @@ import { validId, validPessoaJuridica } from "../middlewares/global.middlewares.
 
 const PessoaJuridicaRouter = Router();
 
-PessoaJuridicaRouter.post("/", pessoajuridicaController.create) //cria users
+PessoaJuridicaRouter.post("/create", pessoajuridicaController.create) //cria users
 PessoaJuridicaRouter.get("/", pessoajuridicaController.findAll) //busca todo users
 PessoaJuridicaRouter.get("/:id", validId, validPessoaJuridica, pessoajuridicaController.findById) //busca users id
 PessoaJuridicaRouter.patch("/:id", validId, validPessoaJuridica, pessoajuridicaController.update) //atualiza user id

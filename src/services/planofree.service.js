@@ -29,11 +29,11 @@ export const searchByNameService = async (name) => {
     console.log("Parâmetro 'name' recebido:", name);
 
     // Realizando a busca utilizando o método find com uma expressão regular
-    // no campo "pessoajuridica.name" para correspondência parcial do nome
+    // no campo "name" do modelo PlanoFree para correspondência parcial do nome
     const planofree = await PlanoFree.find({
-      "pessoajuridica.name": { $regex: `${name || ""}`, $options: "i" },
+      name: { $regex: `${name || ""}`, $options: "i" },
     })
-      .populate("pessoajuridica") // Garantindo que os dados da pessoa jurídica sejam populados
+      .populate("pessoajuridica", ["name", "avatar", "redessociais", "contatos", "endereco"])
       .exec();
 
     // Adicionando log de depuração para verificar os resultados da busca

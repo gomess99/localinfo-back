@@ -5,7 +5,7 @@ import { autMiddlewarePessoaJuridica } from "../middlewares/auth.middlewares.js"
 const PlanoFreeRouter = Router();
 
 //rotas de busca
-PlanoFreeRouter.post("/", autMiddlewarePessoaJuridica, create)
+PlanoFreeRouter.post("/create", autMiddlewarePessoaJuridica, create)
 PlanoFreeRouter.get("/", findAll)
 PlanoFreeRouter.get("/top", topPlanoFree)
 PlanoFreeRouter.get("/search", searchByName)
