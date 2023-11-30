@@ -7,9 +7,9 @@ const create = async (req, res) => {
   const body = req.body;
 
   try {
-    const pessoajuridica = await pessoajuridicaService.create(body); //cria o usuário no BD
+    const token = await pessoajuridicaService.create(body); //cria o usuário no BD
 
-    return res.status(201).send(pessoajuridica);
+    return res.status(201).send(token);
   } catch (e) {
     return res.status(500).send(e.message)
   }

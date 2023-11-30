@@ -36,19 +36,8 @@ const create = async (body) => {
 
     const token = generateToken(pessoajuridica.id);
 
-    return{
-      pessoajuridica: {
-        id: pessoajuridica._id,
-        name,
-        username,
-        email,
-        avatar,
-        redessociais,
-        contatos,
-        endereco,
-      },
-      token,
-    };
+    return token;
+
 };
 
 //relação assincrona usa-se async
