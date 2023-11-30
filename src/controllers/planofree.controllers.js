@@ -161,7 +161,7 @@ export const searchByName = async (req, res) => {
 
     if (name.length === 0) {
       return res.status(400).send({
-        message: "Não existe nenhum estabelecimento com essa caracteristica",
+        message: "Não existe nenhum estabelecimento com essa característica",
       });
     }
 

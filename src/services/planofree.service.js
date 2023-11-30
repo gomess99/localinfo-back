@@ -24,28 +24,11 @@ export const findByIdService = (id) =>
 
 //fará o filtro por categoria
 export const searchByNameService = async (name) => {
-  try {
-    // Adicionando log de depuração para verificar o valor do parâmetro 'name'
-    console.log("Parâmetro 'name' recebido:", name);
-
-    // Realizando a busca utilizando o método find com uma expressão regular
-    // no campo "name" do modelo PlanoFree para correspondência parcial do nome
-    const planofree = await PlanoFree.find({
-      name: { $regex: `${name || ""}`, $options: "i" },
-    })
-      .populate("pessoajuridica", ["name", "avatar", "redessociais", "contatos", "endereco"])
+  PlanoFree.find({ $regex: `${name || ""}`, $options: "i" })
+      .populate("pessoajuridica")
       .exec();
-
-    // Adicionando log de depuração para verificar os resultados da busca
-    console.log("Resultados da busca:", planofree);
-
-    return planofree;
-  } catch (error) {
-    // Adicionando log de depuração para verificar erros, se houverem
-    console.error("Erro na função searchByNameService:", error);
-    throw error;
   }
-};
+
 
 //busca por id da pessoa juridica e trazer seus estabelecimentos
 export const byPessoaJuridicaService = (id) =>
