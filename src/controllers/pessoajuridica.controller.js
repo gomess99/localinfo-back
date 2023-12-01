@@ -1,4 +1,3 @@
-import { response } from "express";
 import pessoajuridicaService from "../services/pessoajuridica.service.js";
 
 //sempre que for consultar algo no bd, é preciso a espera e por isso usa-se async
