@@ -1,36 +1,30 @@
 import dotenv from "dotenv";
-import pessoajuridicaService from "../services/pessoajuridica.service.js";
 import pessoafisicaService from "../services/pessoajuridica.service.js";
 import jwt from "jsonwebtoken";
+import pessoajuridicarepositories from "../repositories/pessoajuridicarepositories.js";
 
 dotenv.config();
 
-export const autMiddlewarePessoaJuridica = (req, res, next) => {
-  try {
-    const { authorization } = req.headers;
+function autMiddlewarePessoaJuridica (req, res, next){
+    const authHeader = req.headers.authorization;
+  if (!authHeader)
+    return res.status(401).send({ message: "The token was not informed!" });
 
-    if (!authorization) {
-      return res.send(401);
-    }
-
-    const parts = authorization.split(" ");
-
-    if (parts.length !== 2) {
-      return res.send(401);
-    }
+    const parts = authHeader.split(" "); /* ["Bearer", "asdasdasdadsadasd"] */
+  if (parts.length !== 2)
+    return res.status(401).send({ message: "Invalid token!" });
 
     const [schema, token] = parts;
 
-    if (schema !== "Bearer") {
-      return res.send(401);
-    }
+    if (!/^Bearer$/i.test(schema))
+    return res.status(401).send({ message: "Malformatted Token!" });
 
-    jwt.verify(token, process.env.SECRET_JWT, async (error, decoded) => {
-      if (error) {
+    jwt.verify(token, process.env.SECRET_JWT, async (err, decoded) => {
+      if (err) {
         return res.status(401).send({ message: "Token inválido" });
       }
 
-      const pessoajuridica = await pessoajuridicaService.findById(
+      const pessoajuridica = await pessoajuridicarepositories.findByIdServiceRepository(
         decoded.id
       );
 
@@ -43,9 +37,6 @@ export const autMiddlewarePessoaJuridica = (req, res, next) => {
       //   console.log(decoded);
       return next();
     });
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
 };
 
 export const autMiddlewarePessoaFisica = (req, res, next) => {
@@ -90,3 +81,5 @@ export const autMiddlewarePessoaFisica = (req, res, next) => {
     res.status(500).send(err.message);
   }
 };
+
+export { autMiddlewarePessoaJuridica };

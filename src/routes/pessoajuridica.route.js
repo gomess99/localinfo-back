@@ -3,6 +3,7 @@ import pessoajuridicaController from "../controllers/pessoajuridica.controller.j
 import { validPessoaJuridica } from "../middlewares/global.middlewares.js";
 import { autMiddlewarePessoaJuridica } from "../middlewares/auth.middlewares.js";
 
+
 const PessoaJuridicaRouter = Router();
 
 PessoaJuridicaRouter.post("/create", pessoajuridicaController.create) //cria users
