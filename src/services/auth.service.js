@@ -1,24 +1,48 @@
 import jwt from "jsonwebtoken";
-import User from "../models/User.js";
-import PessoaFisica from "../models/PessoaFisica.js";
+import bcrypt from "bcrypt";
+import "dotenv/config";
+import pessoajuridicarepositories from "../repositories/pessoajuridicarepositories.js";
 
-import PessoaJuridica from "../models/PessoaJuridica.js";
 
-const loginServicePessoaFisica = (email) =>
-  PessoaFisica.findOne({ email: email }).select("+password");
-  
-const loginServicePessoaJuridica = (email) =>
-  PessoaJuridica.findOne({ email: email }).select("+password"); //aqui ele também trás a senha criptografada
-
-//guarda a sessão do usuário, saber qual usuário está logado
-
-//ele vai criptografar alfum dado do usuário que estiver na função - playload
-
-//será a chave secreta que decodificará esse token, será usado a criptografica md5  - secreteOrPrivateKey
-
-//foi usado o "expiresIn" ele coloca um tempo de expiração do token, em segudos - options
 const generateToken = (id) =>
   jwt.sign({ id: id }, process.env.SECRET_JWT, { expiresIn: 86400 });
 //tempo para expirar de 24h
 
-export { loginServicePessoaJuridica, loginServicePessoaFisica, generateToken };
+const loginServicePessoaJuridica = async ({ email, password }) => {
+  const pessoajuridica =
+    await pessoajuridicarepositories.findByEmailPessoaJuridicaRepository(email);
+
+  if (!pessoajuridica) throw new Error("Wrong password or username");
+
+  const isPasswordValid = await bcrypt.compare(
+    password,
+    pessoajuridica.password
+  );
+
+  if (!isPasswordValid) throw new Error("Invalid password");
+
+  const token = generateToken(pessoajuridica.id);
+
+  return token;
+};
+
+const loginServicePessoaFisica = async ({ email, password }) => {
+  const pessoajuridica =
+    await pessoajuridicarepositories.findByEmailPessoaJuridicaRepository(email);
+
+  if (!pessoajuridica) throw new Error("Wrong password or username");
+
+  const isPasswordValid = await bcrypt.compare(
+    password,
+    pessoajuridica.password
+  );
+
+  if (!isPasswordValid) throw new Error("Invalid password");
+
+  const token = generateToken(pessoajuridica.id);
+
+  return token;
+};
+
+
+export default{ loginServicePessoaJuridica, loginServicePessoaFisica, generateToken };
