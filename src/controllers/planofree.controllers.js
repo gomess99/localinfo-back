@@ -1,311 +1,126 @@
-import {
-  createService,
-  findAllService,
-  countPlanoFree,
-  topPlanoFreeService,
-  findByIdService,
-  searchByNameService,
-  byPessoaJuridicaService,
-  updatePlanoFreeService,
-  erasePlanoFreeService,
-  likesPlanoFreeService,
-  deletelikesPlanoFreeService,
-  searchByCategoriaService,
-} from "../services/planofree.service.js";
+import PlanoFreeService from "../services/planofree.service.js";
 
-//cria os planos
-export const create = async (req, res) => {
+async function createPlanoFreeController(req, res) {
+  const { categoria, carrossel, funcionamento } = req.body;
+  const pessoajuridicaId = req.pessoajuridicaId;
+
   try {
-    const { categoria, carrossel, funcionamento } = req.body;
-
-    if (!categoria || !carrossel || !funcionamento) {
-      return res.status(400).send({
-        message: "Preencha todos os campos",
-      });
-    }
-
-    await createService({
-      categoria,
-      carrossel,
-      funcionamento,
-      pessoajuridica: req.userId,
-    });
-
-    res.sendStatus(201); // Correção: use res.sendStatus(201) em vez de res.send(201)
-  } catch (err) {
-    res.status(500).send({ message: err.message });
+    const planofree = await PlanoFreeService.createPlanoFreeService(
+      { categoria, carrossel, funcionamento },
+      pessoajuridicaId
+    );
+    return res.status(201).send(planofree);
+  } catch (e) {
+    res.status(500).send(e.message);
   }
-};
+}
 
-//exibe todos os planos
-export const findAll = async (req, res) => {
+async function findAllPlanoFreeController(req, res) {
+  const { limit, offset } = req.query;
+  const currentUrl = req.baseUrl;
+
   try {
-    //paginação de dados, exibição de conteúdo aula #21
-    let { limit, offset } = req.query;
-
-    limit = Number(limit);
-    offset = Number(offset);
-
-    //caso não tenha limit e offset, será lançado esses valores respectivamente
-    if (!limit) {
-      limit = 5;
-    }
-
-    if (!offset) {
-      offset = 0;
-    }
-
-    const planofree = await findAllService(offset, limit);
-    const total = await countPlanoFree();
-    const currentUrl = req.baseUrl;
-
-    //paginação para trazer mais informações para o usuário
-
-    const next = offset + limit;
-
-    //toda vez que fizer uma requisição ele mudará a url constantemente, trazendo novos dados para o usuário
-    const nextUrl =
-      next < total ? `${currentUrl}?limit=${limit}&offset=${next}` : null;
-
-    const previous = offset - limit < 0 ? null : offset - limit;
-    const previousUrl =
-      previous != null
-        ? `${currentUrl}?limit=${limit}&offset=${previous}`
-        : null;
-    
-    planofree.shift();
-
-    return res.send({
-      nextUrl,
-      previousUrl,
+    const planofree = await PlanoFreeService.findAllPlanoFreeService(
       limit,
       offset,
-      total,
-      results: planofree.map((planofree) => ({
-        id: planofree._id,
-        categoria: planofree.categoria,
-        carrossel: planofree.carrossel,
-        likes: planofree.likes,
-        funcionamento: planofree.funcionamento,
-        name: planofree.pessoajuridica.name,
-        avatar: planofree.pessoajuridica.avatar,
-        redessociais: planofree.pessoajuridica.redessociais,
-        contatos: planofree.pessoajuridica.contatos,
-        endereco: planofree.pessoajuridica.endereco,
-      })),
-    });
-  } catch (err) {
-    res.status(500).send({ message: err.message });
+      currentUrl
+    );
+    return res.send(planofree);
+  } catch (e) {
+    res.status(500).send(e.message);
   }
-};
+}
 
-//exibe a lista de planos free existentes
-export const topPlanoFree = async (req, res) => {
+async function topPlanoFreeController(req, res) {
   try {
-    const planofree = await topPlanoFreeService();
-
-    if (!planofree) {
-      return res
-        .status(400)
-        .send({ message: "Não há registro de planos free" });
-    }
-
-    res.send({
-      planofree: {
-        id: planofree._id,
-        categoria: planofree.categoria,
-        likes: planofree.likes,
-        carrossel: planofree.carrossel,
-        funcionamento: planofree.funcionamento,
-        name: planofree.pessoajuridica.name,
-        avatar: planofree.pessoajuridica.avatar,
-        redessociais: planofree.pessoajuridica.redessociais,
-        contatos: planofree.pessoajuridica.contatos,
-        endereco: planofree.pessoajuridica.endereco,
-      },
-    });
-  } catch (err) {
-    res.status(500).send({ message: err.message });
+    const planofree = await PlanoFreeService.topPlanoFreeService();
+    return res.send(planofree);
+  } catch (e) {
+    res.status(500).send(e.message);
   }
-};
+}
 
-//exibe a lista de planos free existentes pelo id
-export const findById = async (req, res) => {
+async function searchPlanoFreeController(req, res) {
+  const { categoria } = req.query;
+
   try {
-    const { id } = req.params;
-    const planofree = await findByIdService(id);
+    const foundPlanoFree = await PlanoFreeService.searchPostService(categoria);
 
-    return res.send({
-      planofree: {
-        id: planofree._id,
-        categoria: planofree.categoria,
-        likes: planofree.likes,
-        carrossel: planofree.carrossel,
-        funcionamento: planofree.funcionamento,
-        name: planofree.pessoajuridica.name,
-        avatar: planofree.pessoajuridica.avatar,
-        redessociais: planofree.pessoajuridica.redessociais,
-        contatos: planofree.pessoajuridica.contatos,
-        endereco: planofree.pessoajuridica.endereco,
-      },
-    });
-  } catch (err) {
-    res.status(500).send({ message: err.message });
+    return res.send(foundPlanoFree);
+  } catch (e) {
+    res.status(500).send(e.message);
   }
-};
+}
 
-export const searchByName = async (req, res) => {
+async function findPlanoFreeByIdController(req, res) {
+  const { id } = req.params;
+
   try {
-    const { name } = req.query;
-
-    const planofree = await searchByNameService(name);
-
-    if (name.length === 0) {
-      return res.status(400).send({
-        message: "Não existe nenhum estabelecimento com essa característica",
-      });
-    }
-
-    return res.send({
-      results: planofree.map((planofree) => ({
-        id: planofree._id,
-        categoria: planofree.categoria,
-        likes: planofree.likes,
-        carrossel: planofree.carrossel,
-        funcionamento: planofree.funcionamento,
-        name: planofree.pessoajuridica.name,
-        avatar: planofree.pessoajuridica.avatar,
-        redessociais: planofree.pessoajuridica.redessociais,
-        contatos: planofree.pessoajuridica.contatos,
-        endereco: planofree.pessoajuridica.endereco,
-      })),
-    });
-  } catch (err) {
-    res.status(500).send({ message: err.message });
+    const planofree = await PlanoFreeService.findPlanoFreeByIdService(id);
+    return res.send(planofree);
+  } catch (e) {
+    res.status(404).send(e.message);
   }
-};
+}
 
-export const searchByCategoria = async (req, res) => {
+async function findPlanoFreeByUserIdController(req, res) {
+  const id = req.pessoajuridicaId;
   try {
-    const { categoria } = req.query;
-
-    const planofree = await searchByCategoriaService(categoria);
-
-    if (categoria.length === 0) {
-      return res.status(400).send({
-        message: "Não existe nenhum estabelecimento com essa característica",
-      });
-    }
-
-    return res.send({
-      results: planofree.map((planofree) => ({
-        id: planofree._id,
-        categoria: planofree.categoria,
-        likes: planofree.likes,
-        carrossel: planofree.carrossel,
-        funcionamento: planofree.funcionamento,
-        name: planofree.pessoajuridica.name,
-        avatar: planofree.pessoajuridica.avatar,
-        redessociais: planofree.pessoajuridica.redessociais,
-        contatos: planofree.pessoajuridica.contatos,
-        endereco: planofree.pessoajuridica.endereco,
-      })),
-    });
-  } catch (err) {
-    res.status(500).send({ message: err.message });
+    const planofree = await PlanoFreeService.findPlanoFreeByUserIdService(id);
+    return res.send(planofree);
+  } catch (e) {
+    return res.status(500).send(e.message);
   }
-};
+}
 
-//buscar o plano free de um usuário pelo id, se ouver outros estabelecimentos desse usuário será mostrado também
-export const byPessoaJuridica = async (req, res) => {
+async function updatePlanoFreeController(req, res) {
+  const { categoria, carrossel, funcionamento } = req.body;
+  const { id } = req.params;
+  const pessoajuridicaId = req.pessoajuridicaId;
+
   try {
-    const id = req.userId;
-    const planofree = await byPessoaJuridicaService(id);
+    await postService.updatePostService(id, categoria, carrossel, funcionamento, pessoajuridicaId);
 
-    return res.send({
-      results: planofree.map((planofree) => ({
-        id: planofree._id,
-        categoria: planofree.categoria,
-        likes: planofree.likes,
-        carrossel: planofree.carrossel,
-        funcionamento: planofree.funcionamento,
-        name: planofree.pessoajuridica.name,
-        avatar: planofree.pessoajuridica.avatar,
-        redessociais: planofree.pessoajuridica.redessociais,
-        contatos: planofree.pessoajuridica.contatos,
-        endereco: planofree.pessoajuridica.endereco,
-      })),
-    });
-  } catch (err) {
-    res.status(500).send({ message: err.message });
+    return res.send({ message: "Post successfully updated!" });
+  } catch (e) {
+    return res.status(500).send(e.message);
   }
-};
+}
 
-//atualização
-export const updatePlanoFree = async (req, res) => {
+async function deletePlanoFreeController(req, res) {
+  const { id } = req.params;
+  const pessoajuridicaId = req.pessoajuridicaId;
+
   try {
-    const { categoria, carrossel, funcionamento } = req.body;
-    const { id } = req.params;
-
-    if (!categoria && !carrossel && !funcionamento) {
-      res.status(400).send({
-        message: "Escolha um campo para fazer alteração",
-      });
-    }
-
-    //aqui faz a busca para encontrar se a pessoa que está fazendo a alteração realmente é o proprietário do plano
-    const planofree = await findByIdService(id);
-
-    if (String(planofree.pessoajuridica._id) !== req.userId) {
-      res.status(400).send({
-        message: "Você não pode dá update nesse publicação",
-      });
-    }
-
-    await updatePlanoFreeService(id, categoria, carrossel, funcionamento);
-
-    return res.send({ message: "Publicação alterada com sucesso" });
+    await PlanoFreeService.deletePlanoFreeService(id, pessoajuridicaId);
+    return res.send({ message: "Post deleted successfully" });
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    return res.status(500).send(e.message);
   }
-};
+}
 
-export const erasePlanoFree = async (req, res) => {
+async function likePlanoFreeController(req, res) {
+  const { id } = req.params;
+  const pessoajuridicaId = req.pessoajuridicaId;
+
   try {
-    const { id } = req.params;
+    const response = await PlanoFreeService.likePlanoFreeService(id, pessoajuridicaId);
 
-    const planofree = await findByIdService(id);
-
-    if (String(planofree.pessoajuridica._id) !== req.userId) {
-      return res.status(400).send({
-        message: "Você não pode deletar nesse publicação",
-      });
-    }
-
-    await erasePlanoFreeService(id);
-    return res.send({
-      message: "Você deletou essa divulgação",
-    });
-  } catch (err) {
-    res.status(500).send({ message: err.message });
+    return res.send(response);
+  } catch (e) {
+    return res.status(500).send(e.message);
   }
-};
+}
 
-export const likesPlanoFree = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const userId = req.userId;
 
-    const planofreeLiked = await likesPlanoFreeService(id, userId);
-
-    if(!planofreeLiked){
-        await deletelikesPlanoFreeService(id, userId);
-        return res.status(200).send({message: "Like Removido"});
-    }
-
-    return res.status(200).send({message: "Like"});
-
-  } catch (err) {
-    res.status(500).send({ message: err.message });
-  }
+export default {
+  createPlanoFreeController,
+  findAllPlanoFreeController,
+  topPlanoFreeController,
+  searchPlanoFreeController,
+  findPlanoFreeByIdController,
+  findPlanoFreeByUserIdController,
+  updatePlanoFreeController,
+  deletePlanoFreeController,
+  likePlanoFreeController,
 };
