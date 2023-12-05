@@ -10,6 +10,7 @@ import {
   erasePlanoFreeService,
   likesPlanoFreeService,
   deletelikesPlanoFreeService,
+  searchByCategoriaService,
 } from "../services/planofree.service.js";
 
 //cria os planos
@@ -160,6 +161,37 @@ export const searchByName = async (req, res) => {
     const planofree = await searchByNameService(name);
 
     if (name.length === 0) {
+      return res.status(400).send({
+        message: "Não existe nenhum estabelecimento com essa característica",
+      });
+    }
+
+    return res.send({
+      results: planofree.map((planofree) => ({
+        id: planofree._id,
+        categoria: planofree.categoria,
+        likes: planofree.likes,
+        carrossel: planofree.carrossel,
+        funcionamento: planofree.funcionamento,
+        name: planofree.pessoajuridica.name,
+        avatar: planofree.pessoajuridica.avatar,
+        redessociais: planofree.pessoajuridica.redessociais,
+        contatos: planofree.pessoajuridica.contatos,
+        endereco: planofree.pessoajuridica.endereco,
+      })),
+    });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+export const searchByCategoria = async (req, res) => {
+  try {
+    const { categoria } = req.query;
+
+    const planofree = await searchByCategoriaService(categoria);
+
+    if (categoria.length === 0) {
       return res.status(400).send({
         message: "Não existe nenhum estabelecimento com essa característica",
       });

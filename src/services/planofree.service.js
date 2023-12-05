@@ -1,6 +1,5 @@
 import PlanoFree from "../models/PlanoFree.js";
 
-
 export const createService = (body) => PlanoFree.create(body);
 
 //aqui extraimos as informações da tabela PlanoFree, ordenamos com o sort para exibir o primeiro usuário a criar seu plano ao ultimo, colocamos o skip ele soma o limit de exibição, 5 + 5 + 5..., por ultimo povoamos pegando pelo id o restante dos dados do usuário que pertence a esse plano
@@ -25,10 +24,15 @@ export const findByIdService = (id) =>
 //fará o filtro por categoria
 export const searchByNameService = async (name) => {
   PlanoFree.find({ $regex: `${name || ""}`, $options: "i" })
-      .populate("pessoajuridica")
-      .exec();
-  }
+    .populate("pessoajuridica")
+    .exec();
+};
 
+export const searchByCategoriaService = async (categoria) => {
+  PlanoFree.find({ $regex: `${categoria || ""}`, $options: "i" })
+    .populate("pessoajuridica")
+    .exec();
+};
 
 //busca por id da pessoa juridica e trazer seus estabelecimentos
 export const byPessoaJuridicaService = (id) =>
@@ -45,7 +49,7 @@ export const updatePlanoFreeService = (
 ) =>
   PlanoFree.findOneAndUpdate(
     { _id: id },
-    { categoria, carrossel, funcionamento },
+    { categoria, carrossel, funcionamento }
   );
 
 export const erasePlanoFreeService = (id) =>
