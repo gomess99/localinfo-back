@@ -1,59 +1,73 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 import userService from "../services/user.service.js";
 import pessoajuridicaService from "../services/pessoajuridica.service.js";
 import pessoafisicaService from "../services/pessoafisica.service.js";
 
 export const validId = (req, res, next) => {
-    try
-        {const id = req.params.id;
+  try {
+    const id = req.params.id;
 
-        if(!mongoose.Types.ObjectId.isValid(id)){
-            return res.status(400).send({ menssage: "Id não encontrado"});
-        }
-
-    next();}catch(err){
-        res.status(500).send({menssage: err.menssage})
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).send({ menssage: "Id não encontrado" });
     }
+
+    next();
+  } catch (err) {
+    res.status(500).send({ menssage: err.menssage });
+  }
 };
 
 export const validUser = async (req, res, next) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    const user = await userService.findByIdService(id);
+  const user = await userService.findByIdService(id);
 
-    if (!user) {
-        return res.status(400).send({ menssage: "Usuário não encontrado"})
-    }
-    req.id = id;
-    req.user = user;
+  if (!user) {
+    return res.status(400).send({ menssage: "Usuário não encontrado" });
+  }
+  req.id = id;
+  req.user = user;
 
-    next();
+  next();
 };
 
 export const validPessoaFisica = async (req, res, next) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    const pessoafisica = await pessoafisicaService.findByIdService(id);
+  const pessoafisica = await pessoafisicaService.findByIdService(id);
 
-    if (!pessoafisica) {
-        return res.status(400).send({ menssage: "Pessoa Física não encontrado"})
-    }
-    req.id = id;
-    req.pessoafisica = pessoafisica;
+  if (!pessoafisica) {
+    return res.status(400).send({ menssage: "Pessoa Física não encontrado" });
+  }
+  req.id = id;
+  req.pessoafisica = pessoafisica;
 
-    next();
+  next();
 };
 
 export const validPessoaJuridica = async (req, res, next) => {
-    const id = req.params.id;
+  let idParam;
+  if (!req.params.id) {
+    req.params.id = req.pessoajuridicaID;
+    idParam = req.params.id;
+  } else {
+    idParam = req.params.id;
+  }
 
-    const pessoajuridica = await pessoajuridicaService.findById(id);
+  if (!mongoose.Types.ObjectId.isValid(idParam)) {
+    return res.status(400).send({ message: "Invalid id!" });
+  }
+  next();
 
-    if (!pessoajuridica) {
-        return res.status(400).send({ menssage: "Pessoa Jurídica não encontrado"})
-    }
-    req.id = id;
-    req.pessoajuridica = pessoajuridica;
+  // const id = req.params.id;
 
-    next();
+  // const pessoajuridica = await pessoajuridicaService.findById(id);
+
+  // if (!pessoajuridica) {
+  //     return res.status(400).send({ menssage: "Pessoa Jurídica não encontrado"})
+  // }
+  // req.id = id;
+  // req.pessoajuridica = pessoajuridica;
+
+  // next();
 };

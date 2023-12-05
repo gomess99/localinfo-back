@@ -5,10 +5,11 @@ import { autMiddlewarePessoaJuridica } from "../middlewares/auth.middlewares.js"
 const PlanoFreeRouter = Router();
 
 //rotas de busca
+PlanoFreeRouter.get("/search", PlanoFreeController.searchPlanoFreeController)
 PlanoFreeRouter.post("/create", autMiddlewarePessoaJuridica, PlanoFreeController.createPlanoFreeController)
 PlanoFreeRouter.get("/", PlanoFreeController.findAllPlanoFreeController)
 PlanoFreeRouter.get("/top", PlanoFreeController.topPlanoFreeController)
-PlanoFreeRouter.get("/search", PlanoFreeController.searchPlanoFreeController)
+
 PlanoFreeRouter.get("/byPessoaJuridica", autMiddlewarePessoaJuridica, PlanoFreeController.findPlanoFreeByUserIdController)
 PlanoFreeRouter.get("/:id", autMiddlewarePessoaJuridica, PlanoFreeController.findPlanoFreeByIdController)
 //obs: para pesquisar normal não precisa de autenticação, mas para pesquisar pelo id é necessário

@@ -5,8 +5,9 @@ import pessoajuridicarepositories from "../repositories/pessoajuridicarepositori
 
 function generateToken(id) {
   return jwt.sign({ id: id }, process.env.SECRET, { expiresIn: 86400 });
+  //tempo para expirar de 24h
 }
-//tempo para expirar de 24h
+
 
 const loginServicePessoaJuridica = async ({ email, password }) => {
   const pessoajuridica =
