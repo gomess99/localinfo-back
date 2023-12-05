@@ -1,8 +1,10 @@
-import planofreeRepositories from "../repositories/planofree.repositories.js";
 import PlanoFreeRepositories from "../repositories/planofree.repositories.js";
 import PlanoFreeRouter from "../routes/planofree.route.js";
 
-async function createPlanoFreeService({ categoria, carrossel, funcionamento }, pessoajuridicaId) {
+async function createPlanoFreeService(
+  { categoria, carrossel, funcionamento },
+  pessoajuridicaId
+) {
   if (!categoria || !carrossel || !funcionamento)
     throw new Error("Submit all fields for registration");
 
@@ -31,7 +33,10 @@ async function findAllPlanoFreeService(limit, offset, currentUrl) {
     offset = 0;
   }
 
-  const planofree = await PlanoFreeRepositories.findAllPlanoFreeRepository(offset, limit);
+  const planofree = await PlanoFreeRepositories.findAllPlanoFreeRepository(
+    offset,
+    limit
+  );
 
   const total = await PlanoFreeRepositories.countPlanoFree();
 
@@ -54,15 +59,15 @@ async function findAllPlanoFreeService(limit, offset, currentUrl) {
 
     results: planofree.map((planofree) => ({
       id: planofree._id,
-        categoria: planofree.categoria,
-        likes: planofree.likes,
-        carrossel: planofree.carrossel,
-        funcionamento: planofree.funcionamento,
-        name: planofree.pessoajuridica.name,
-        avatar: planofree.pessoajuridica.avatar,
-        redessociais: planofree.pessoajuridica.redessociais,
-        contatos: planofree.pessoajuridica.contatos,
-        endereco: planofree.pessoajuridica.endereco,
+      categoria: planofree.categoria,
+      likes: planofree.likes,
+      carrossel: planofree.carrossel,
+      funcionamento: planofree.funcionamento,
+      name: planofree.pessoajuridica.name,
+      avatar: planofree.pessoajuridica.avatar,
+      redessociais: planofree.pessoajuridica.redessociais,
+      contatos: planofree.pessoajuridica.contatos,
+      endereco: planofree.pessoajuridica.endereco,
     })),
   };
 }
@@ -75,21 +80,23 @@ async function topPlanoFreeService() {
   return {
     planofree: {
       id: planofree._id,
-        categoria: planofree.categoria,
-        likes: planofree.likes,
-        carrossel: planofree.carrossel,
-        funcionamento: planofree.funcionamento,
-        name: planofree.pessoajuridica.name,
-        avatar: planofree.pessoajuridica.avatar,
-        redessociais: planofree.pessoajuridica.redessociais,
-        contatos: planofree.pessoajuridica.contatos,
-        endereco: planofree.pessoajuridica.endereco,
+      categoria: planofree.categoria,
+      likes: planofree.likes,
+      carrossel: planofree.carrossel,
+      funcionamento: planofree.funcionamento,
+      name: planofree.pessoajuridica.name,
+      avatar: planofree.pessoajuridica.avatar,
+      redessociais: planofree.pessoajuridica.redessociais,
+      contatos: planofree.pessoajuridica.contatos,
+      endereco: planofree.pessoajuridica.endereco,
     },
   };
 }
 
 async function searchPlanoFreeService(categoria) {
-  const foundPlanoFree = await PlanoFreeRepositories.searchPlanoFreeRepository(categoria);
+  const foundPlanoFree = await PlanoFreeRepositories.searchPlanoFreeRepository(
+    categoria
+  );
 
   if (foundPlanoFree.length === 0)
     throw new Error("There are no posts with this title");
@@ -97,15 +104,15 @@ async function searchPlanoFreeService(categoria) {
   return {
     foundPlanoFree: foundPlanoFree.map((planofree) => ({
       id: planofree._id,
-        categoria: planofree.categoria,
-        likes: planofree.likes,
-        carrossel: planofree.carrossel,
-        funcionamento: planofree.funcionamento,
-        name: planofree.pessoajuridica.name,
-        avatar: planofree.pessoajuridica.avatar,
-        redessociais: planofree.pessoajuridica.redessociais,
-        contatos: planofree.pessoajuridica.contatos,
-        endereco: planofree.pessoajuridica.endereco,
+      categoria: planofree.categoria,
+      likes: planofree.likes,
+      carrossel: planofree.carrossel,
+      funcionamento: planofree.funcionamento,
+      name: planofree.pessoajuridica.name,
+      avatar: planofree.pessoajuridica.avatar,
+      redessociais: planofree.pessoajuridica.redessociais,
+      contatos: planofree.pessoajuridica.contatos,
+      endereco: planofree.pessoajuridica.endereco,
     })),
   };
 }
@@ -117,38 +124,46 @@ async function findPlanoFreeByIdService(id) {
 
   return {
     id: planofree._id,
-        categoria: planofree.categoria,
-        likes: planofree.likes,
-        carrossel: planofree.carrossel,
-        funcionamento: planofree.funcionamento,
-        name: planofree.pessoajuridica.name,
-        avatar: planofree.pessoajuridica.avatar,
-        redessociais: planofree.pessoajuridica.redessociais,
-        contatos: planofree.pessoajuridica.contatos,
-        endereco: planofree.pessoajuridica.endereco,
+    categoria: planofree.categoria,
+    likes: planofree.likes,
+    carrossel: planofree.carrossel,
+    funcionamento: planofree.funcionamento,
+    name: planofree.pessoajuridica.name,
+    avatar: planofree.pessoajuridica.avatar,
+    redessociais: planofree.pessoajuridica.redessociais,
+    contatos: planofree.pessoajuridica.contatos,
+    endereco: planofree.pessoajuridica.endereco,
   };
 }
 
 async function findPlanoFreeByUserIdService(id) {
-  const planofree = await PlanoFreeRepositories.findPlanoFreeByUserIdRepository(id);
+  const planofree = await PlanoFreeRepositories.findPlanoFreeByUserIdRepository(
+    id
+  );
 
   return {
     planofreeByUser: planofree.map((planofree) => ({
       id: planofree._id,
-        categoria: planofree.categoria,
-        likes: planofree.likes,
-        carrossel: planofree.carrossel,
-        funcionamento: planofree.funcionamento,
-        name: planofree.pessoajuridica.name,
-        avatar: planofree.pessoajuridica.avatar,
-        redessociais: planofree.pessoajuridica.redessociais,
-        contatos: planofree.pessoajuridica.contatos,
-        endereco: planofree.pessoajuridica.endereco,
+      categoria: planofree.categoria,
+      likes: planofree.likes,
+      carrossel: planofree.carrossel,
+      funcionamento: planofree.funcionamento,
+      name: planofree.pessoajuridica.name,
+      avatar: planofree.pessoajuridica.avatar,
+      redessociais: planofree.pessoajuridica.redessociais,
+      contatos: planofree.pessoajuridica.contatos,
+      endereco: planofree.pessoajuridica.endereco,
     })),
   };
 }
 
-async function updatePostService(id, categoria, carrossel, funcionamento, pessoajuridicaId) {
+async function updatePostService(
+  id,
+  categoria,
+  carrossel,
+  funcionamento,
+  pessoajuridicaId
+) {
   if (!categoria && !carrossel && !funcionamento)
     throw new Error("Submit at least one field to update the post");
 
@@ -156,32 +171,41 @@ async function updatePostService(id, categoria, carrossel, funcionamento, pessoa
 
   if (!planofree) throw new Error("Post not found");
 
-  if (planofree.pessoajuridica._id != pessoajuridicaId) throw new Error("You didn't create this post");
+  if (planofree.pessoajuridica._id != pessoajuridicaId)
+    throw new Error("You didn't create this post");
 
-  await PlanoFreeRepositories.updatePlanoFreeRepository(id, categoria, carrossel, funcionamento);
+  await PlanoFreeRepositories.updatePlanoFreeRepository(
+    id,
+    categoria,
+    carrossel,
+    funcionamento
+  );
 }
 
-async function deletePlanoFreeService(id, userId) {
+async function deletePlanoFreeService(id, pessoajuridicaId) {
   const planofree = await PlanoFreeService.findPlanoFreeByIdService(id);
 
   if (!planofree) throw new Error("Post not found");
 
-  if (planofree.pessoajuridica._id != pessoajuridicaId) throw new Error("You didn't create this post");
+  if (planofree.pessoajuridica._id != pessoajuridicaId)
+    throw new Error("You didn't create this post");
 
-  await planofreeRepositories.deletePlanoFreeRepository(id);
+  await PlanoFreeRepositories.deletePlanoFreeRepository(id);
 }
 
-async function likePlanoFreeService(id, pessoafisicaId) {
-  const planofreeLiked = await PlanoFreeService.likesService(id, pessoafisicaId);
+async function likePlanoFreeService(id, pessoajuridicaId) {
+  const planofreeLiked = await PlanoFreeService.likesService(
+    id,
+    pessoajuridicaId
+  );
 
   if (planofreeLiked.lastErrorObject.n === 0) {
-    await PlanoFreeService.likesDeleteService(id, pessoafisicaId);
+    await PlanoFreeService.likesDeleteService(id, pessoajuridicaId);
     return { message: "Like successfully removed" };
   }
 
   return { message: "Like done successfully" };
 }
-
 
 export default {
   createPlanoFreeService,

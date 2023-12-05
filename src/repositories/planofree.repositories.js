@@ -26,14 +26,14 @@ function countPlanoFree() {
 
 function searchPlanoFreeRepository(categoria) {
   return PlanoFree.find({
-    title: { $regex: `${categoria || ""}`, $options: "i" },
+    categoria: { $regex: `${categoria || ""}`, $options: "i" },
   })
     .sort({ _id: -1 })
     .populate("pessoajuridica");
 }
 
 function findPlanoFreeByUserIdRepository(id) {
-  return Post.find({
+  return PlanoFree.find({
     pessoajuridica: id,
   })
     .sort({ _id: -1 })
@@ -41,7 +41,7 @@ function findPlanoFreeByUserIdRepository(id) {
 }
 
 function updatePlanoFreeRepository(id, categoria, carrossel, funcionamento) {
-  return Post.findOneAndUpdate(
+  return PlanoFree.findOneAndUpdate(
     {
       _id: id,
     },
@@ -78,7 +78,7 @@ function likesRepository(id, pessoajuridicaId) {
 }
 
 function likesDeleteRepository(id, pessoajuridicaId) {
-  return Post.findOneAndUpdate(
+  return PlanoFree.findOneAndUpdate(
     {
       _id: id,
     },
