@@ -9,6 +9,7 @@ const loginPessoaJuridica = async (req, res) =>
 
         return res.send(token);
     }catch(e){
+        console.log(e);
         return res.status(401).send(e.message);
     }
 

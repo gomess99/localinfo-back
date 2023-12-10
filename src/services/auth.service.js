@@ -8,7 +8,6 @@ function generateToken(id) {
   //tempo para expirar de 24h
 }
 
-
 const loginServicePessoaJuridica = async ({ email, password }) => {
   const pessoajuridica =
     await pessoajuridicarepositories.findByEmailPessoaJuridicaRepository(email);
@@ -27,23 +26,23 @@ const loginServicePessoaJuridica = async ({ email, password }) => {
   return token;
 };
 
-const loginServicePessoaFisica = async ({ email, password }) => {
-  const pessoafisica =
-    await pessoajuridicarepositories.findByEmailPessoaJuridicaRepository(email);
+// const loginServicePessoaFisica = async ({ email, password }) => {
+//   const pessoafisica =
+//     await pessoajuridicarepositories.findByEmailPessoaJuridicaRepository(email);
 
-  if (!pessoafisica) throw new Error("Wrong password or username");
+//   if (!pessoafisica) throw new Error("Wrong password or username");
 
-  const isPasswordValid = await bcrypt.compare(password, pessoafisica.password);
+//   const isPasswordValid = await bcrypt.compare(password, pessoafisica.password);
 
-  if (!isPasswordValid) throw new Error("Invalid password");
+//   if (!isPasswordValid) throw new Error("Invalid password");
 
-  const token = generateToken(pessoafisica.id);
+//   const token = generateToken(pessoafisica.id);
 
-  return token;
-};
+//   return token;
+// };
 
 export default {
   loginServicePessoaJuridica,
-  loginServicePessoaFisica,
+  // loginServicePessoaFisica,
   generateToken,
 };
