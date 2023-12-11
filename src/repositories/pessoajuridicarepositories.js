@@ -1,6 +1,6 @@
 import PessoaJuridica from "../models/PessoaJuridica.js";
 
-const findByEmailPessoaJuridicaRepository = (email) => PessoaJuridica.findOne({ email: email });
+const findByEmailPessoaJuridicaRepository = (email) => PessoaJuridica.findOne({ email: email }).select("+password");
 
 const createServiceRepository = (body) => PessoaJuridica.create(body);
 
