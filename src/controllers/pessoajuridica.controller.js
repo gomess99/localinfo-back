@@ -27,13 +27,15 @@ const findAll = async (req, res) => {
 };
 
 const findById = async (req, res) => {
-  const { id: pessoajuridicaId} = req.params;
   try {
-    const pessoajuridica = await pessoajuridica.findById(pessoajuridicaId);
+    const pessoajuridica = await pessoajuridicaService.findById(
+      req.params.id,
+      req.pessoajuridicaId
+    );
 
-    res.send(pessoajuridica);
-  } catch (error) {
-    res.status(500).send({ message: error.message });
+    return res.send(pessoajuridica);
+  } catch (e) {
+    return res.status(400).send(e.message);
   }
 };
 
