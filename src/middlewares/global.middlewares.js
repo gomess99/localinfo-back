@@ -54,9 +54,8 @@ export const validPessoaJuridica = async (req, res, next) => {
     } else {
       idParam = req.params.id;
     }
-
-    console.log("ID recebido:", idParam);
-    console.log("ID recebido:", idParam);
+    // console.log("ID recebido:", idParam);
+    // console.log("ID recebido:", idParam);
 
     if (!mongoose.Types.ObjectId.isValid(idParam)) {
       return res.status(400).send({ message: "Invalid id!" });

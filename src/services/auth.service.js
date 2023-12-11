@@ -14,29 +14,31 @@ function generateToken(id) {
 }
 
 const loginServicePessoaJuridica = async ({ email, password }) => {
-  const pessoajuridica =
-    await pessoajuridicarepositories.findByEmailPessoaJuridicaRepository(email);
+  try {
+    const pessoajuridica = await pessoajuridicarepositories.findByEmailPessoaJuridicaRepository(email);
 
-  if (!pessoajuridica) {
-    throw new Error("User not found");
+    if (!pessoajuridica) {
+      throw new Error("Falha ao fazer login. Email ou senha incorretos");
+    }
+
+    if (!pessoajuridica.password) {
+      throw new Error("Falha ao fazer login. Email ou senha incorretos");
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, pessoajuridica.password);
+
+    if (!isPasswordValid) {
+      throw new Error("Falha ao fazer login. Email ou senha incorretos");
+    }
+
+    // console.log("ID da pessoa jurídica:", pessoajuridica.id);
+    const token = generateToken(pessoajuridica.id);
+
+    return token;
+  } catch (error) {
+    console.error("Erro no loginServicePessoaJuridica:", error.message);
+    return { success: false, message: "Falha ao fazer login. Email ou senha incorretos" };
   }
-
-  if (!pessoajuridica.password) {
-    throw new Error("User password not set");
-  }
-
-  const isPasswordValid = await bcrypt.compare(password, pessoajuridica.password);
-
-
-  if (!isPasswordValid) {
-    throw new Error("Invalid password");
-  }
-
-  if (!isPasswordValid) throw new Error("Invalid password");
-  console.log("ID da pessoa jurídica:", pessoajuridica.id);
-  const token = generateToken(pessoajuridica.id);
-
-  return token;
 };
 
 const loginServicePessoaFisica = async ({ email, password }) => {
