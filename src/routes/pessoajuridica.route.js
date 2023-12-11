@@ -8,10 +8,9 @@ const PessoaJuridicaRouter = Router();
 
 PessoaJuridicaRouter.post("/create", pessoajuridicaController.create) //cria users
 
+PessoaJuridicaRouter.use(autMiddlewarePessoaJuridica);
 
 PessoaJuridicaRouter.get("/", pessoajuridicaController.findAll) //busca todo users
-
-PessoaJuridicaRouter.use(autMiddlewarePessoaJuridica);
 
 PessoaJuridicaRouter.use(validPessoaJuridica);
 PessoaJuridicaRouter.get("/findById/:id?", pessoajuridicaController.findById) //busca users id

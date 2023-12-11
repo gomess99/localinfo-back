@@ -53,18 +53,20 @@ const findAll = async () => {
   return pessoajuridicas;
 };
 
-const findById = async (pessoajuridicaId, idLogged) => {
+async function findById(pessoajuridicaIdParam, pessoajuridicaIdLogged){
   let idParam;
-  if (!pessoajuridicaId) {
-    pessoajuridicaId = idLogged;
-    idParam = pessoajuridicaId;
+  if (!pessoajuridicaIdParam) {
+    pessoajuridicaIdParam = pessoajuridicaIdLogged;
+    idParam = pessoajuridicaIdParam;
   } else {
-    idParam = pessoajuridicaId;
+    idParam = pessoajuridicaIdParam;
   }
   if (!idParam)
     throw new Error("Use um ID para encontrar o perfil da pessoa Juridica");
   const pessoajuridica =
     await pessoajuridicarepositories.findByIdServiceRepository(idParam);
+
+    if (!pessoajuridica) throw new Error("Pessoa Jurídica not found");
 
   return pessoajuridica;
 };
@@ -92,8 +94,8 @@ const update = async (body, pessoajuridicaId) => {
   )
     throw new Error("Necessário pelo menos um campo para realizar o update");
 
-  const pessoajuridica =
-    await pessoajuridicarepositories.findByIdServiceRepository(id);
+    const pessoajuridica = await pessoajuridicarepositories.findByIdServiceRepository(pessoajuridicaId);
+
 
   if (pessoajuridica._id != pessoajuridicaId)
     new Error("Você não pode dá update com esse usuário");

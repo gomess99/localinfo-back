@@ -8,26 +8,35 @@ dotenv.config();
 const autMiddlewarePessoaJuridica = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
-    if (!authHeader) return res.status(401).send({ message: "The token was not informed!" });
+    if (!authHeader)
+      return res.status(401).send({ message: "The token was not informed!" });
 
     const parts = authHeader.split(" ");
-    if (parts.length !== 2) return res.status(401).send({ message: "Invalid token!" });
+    if (parts.length !== 2)
+      return res.status(401).send({ message: "Invalid token!!" });
 
-    const [schema, token] = parts;
-    if (!/^Bearer$/i.test(schema)) return res.status(401).send({ message: "Malformatted Token!" });
+    const [scheme, token] = parts;
+
+    if (!/^Bearer$/i.test(scheme))
+      return res.status(401).send({ message: "Malformatted Token!" });
 
     jwt.verify(token, process.env.SECRET_JWT, async (err, decoded) => {
       if (err) {
         return res.status(401).send({ message: "Token inválido" });
       }
 
-      const pessoajuridica = await pessoajuridicarepositories.findByIdServiceRepository(decoded.id);
+      const pessoajuridica =
+        await pessoajuridicarepositories.findByIdServiceRepository(decoded.id);
 
       if (!pessoajuridica || !pessoajuridica.id) {
-        return res.status(401).send({ message: "Token inválido" });
+        return res
+          .status(401)
+          .send({
+            message: "Token inválido, id não condigente com a pessoa jurídica",
+          });
       }
 
-      req.userId = pessoajuridica.id;
+      req.pessoajuridicaId = pessoajuridica.id;
       return next();
     });
   } catch (error) {
@@ -61,7 +70,9 @@ const autMiddlewarePessoaFisica = async (req, res, next) => {
         return res.status(401).send({ message: "Token inválido" });
       }
 
-      const pessoafisica = await pessoafisicaService.findByIdService(decoded.id);
+      const pessoafisica = await pessoafisicaService.findByIdService(
+        decoded.id
+      );
 
       if (!pessoafisica || !pessoafisica.id) {
         return res.status(401).send({ message: "Token inválido" });

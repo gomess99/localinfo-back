@@ -43,7 +43,7 @@ const update = async (req, res) => {
   const body = req.body;
   const pessoajuridicaId = req.pessoajuridicaId;
   try {
-    const response = await pessoajuridicaService.updateService(body, pessoajuridicaId);
+    const response = await pessoajuridicaService.update(body, pessoajuridicaId);
 
     return res.send(response);
   } catch (error) {

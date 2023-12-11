@@ -8,7 +8,7 @@ export const validId = (req, res, next) => {
     const id = req.params.id;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).send({ menssage: "Id não encontrado" });
+      return res.status(400).send({ message: "Id não encontrado" });
     }
 
     next();
@@ -45,29 +45,26 @@ export const validPessoaFisica = async (req, res, next) => {
   next();
 };
 
+
 export const validPessoaJuridica = async (req, res, next) => {
-  let idParam;
-  if (!req.params.id) {
-    req.params.id = req.pessoajuridicaID;
-    idParam = req.params.id;
-  } else {
-    idParam = req.params.id;
+  try {
+    let idParam;
+    if (!req.params.id) {
+      idParam = req.pessoajuridicaId;
+    } else {
+      idParam = req.params.id;
+    }
+
+    console.log("ID recebido:", idParam);
+    console.log("ID recebido:", idParam);
+
+    if (!mongoose.Types.ObjectId.isValid(idParam)) {
+      return res.status(400).send({ message: "Invalid id!" });
+    }
+
+    next();
+  } catch (error) {
+    console.error("Erro no middleware validPessoaJuridica:", error);
+    res.status(500).send({ message: "Internal Server Error" });
   }
-
-  if (!mongoose.Types.ObjectId.isValid(idParam)) {
-    return res.status(400).send({ message: "Invalid id!" });
-  }
-  next();
-
-  // const id = req.params.id;
-
-  // const pessoajuridica = await pessoajuridicaService.findById(id);
-
-  // if (!pessoajuridica) {
-  //     return res.status(400).send({ menssage: "Pessoa Jurídica não encontrado"})
-  // }
-  // req.id = id;
-  // req.pessoajuridica = pessoajuridica;
-
-  // next();
 };
