@@ -28,9 +28,8 @@ const findAll = async (req, res) => {
 
 const findById = async (req, res) => {
   const { id: pessoajuridicaId} = req.params;
-  const idLogged = req.pessoajuridicaId;
   try {
-    const pessoajuridica = await pessoajuridica.findById(pessoajuridicaId, idLogged);
+    const pessoajuridica = await pessoajuridica.findById(pessoajuridicaId);
 
     res.send(pessoajuridica);
   } catch (error) {
