@@ -602,6 +602,7 @@
                     "PlanoFree"
                 ],
                 "parameters": [
+                    
                     {
                         "in": "query",
                         "categoria": "categoria",
