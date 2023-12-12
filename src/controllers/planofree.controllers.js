@@ -44,7 +44,7 @@ async function searchPlanoFreeController(req, res) {
   const { categoria } = req.query;
 
   try {
-    const foundPlanoFree = await PlanoFreeService.searchPostService(categoria);
+    const foundPlanoFree = await PlanoFreeService.searchPlanoFreeService(categoria);
 
     return res.send(foundPlanoFree);
   } catch (e) {

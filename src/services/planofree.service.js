@@ -99,7 +99,7 @@ async function searchPlanoFreeService(categoria) {
   );
 
   if (foundPlanoFree.length === 0)
-    throw new Error("There are no posts with this title");
+    throw new Error("Nenhum resultado para esse busca");
 
   return {
     foundPlanoFree: foundPlanoFree.map((planofree) => ({
@@ -194,13 +194,13 @@ async function deletePlanoFreeService(id, pessoajuridicaId) {
 }
 
 async function likePlanoFreeService(id, pessoajuridicaId) {
-  const planofreeLiked = await PlanoFreeService.likesService(
+  const planofreeLiked = await PlanoFreeRepositories.likesRepository(
     id,
     pessoajuridicaId
   );
 
   if (planofreeLiked.lastErrorObject.n === 0) {
-    await PlanoFreeService.likesDeleteService(id, pessoajuridicaId);
+    await PlanoFreeRepositories.likesDeleteRepository(id, pessoajuridicaId);
     return { message: "Like successfully removed" };
   }
 
