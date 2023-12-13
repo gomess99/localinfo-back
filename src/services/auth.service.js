@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import pessoajuridicarepositories from "../repositories/pessoajuridicarepositories.js";
+import pessoafisicarepositories from "../repositories/pessoafisicarepositories.js";
 
 dotenv.config();
 
@@ -42,19 +43,33 @@ const loginServicePessoaJuridica = async ({ email, password }) => {
 };
 
 const loginServicePessoaFisica = async ({ email, password }) => {
-  const pessoafisica =
-    await pessoajuridicarepositories.findByEmailPessoaJuridicaRepository(email);
+  try {
+    const pessoafisica = await pessoafisicarepositories.findByEmailPessoaFisicaRepository(email);
 
-  if (!pessoafisica) throw new Error("Wrong password or username");
+    if (!pessoafisica) {
+      throw new Error("Falha ao fazer login. Email ou senha incorretos");
+    }
 
-  const isPasswordValid = await bcrypt.compare(password, pessoafisica.password);
+    if (!pessoafisica.password) {
+      throw new Error("Falha ao fazer login. Email ou senha incorretos");
+    }
 
-  if (!isPasswordValid) throw new Error("Invalid password");
+    const isPasswordValid = await bcrypt.compare(password, pessoafisica.password);
 
-  const token = generateToken(pessoafisica.id);
+    if (!isPasswordValid) {
+      throw new Error("Falha ao fazer login. Email ou senha incorretos");
+    }
 
-  return token;
+    // console.log("ID da pessoa física:", pessoafisica.id);
+    const token = generateToken(pessoafisica.id);
+
+    return token;
+  } catch (error) {
+    console.error("Erro no loginServicePessoaFisica:", error.message);
+    return { success: false, message: "Falha ao fazer login. Email ou senha incorretos" };
+  }
 };
+
 
 export default {
   loginServicePessoaJuridica,
