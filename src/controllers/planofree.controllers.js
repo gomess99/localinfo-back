@@ -1,12 +1,12 @@
 import PlanoFreeService from "../services/planofree.service.js";
 
 async function createPlanoFreeController(req, res) {
-  const { categoria, carrossel, funcionamento } = req.body;
+  const { categoria, descricao, galeria, funcionamento, redessociais, contatos, endereco } = req.body;
   const pessoajuridicaId = req.pessoajuridicaId;
 
   try {
     const planofree = await PlanoFreeService.createPlanoFreeService(
-      { categoria, carrossel, funcionamento },
+      { categoria, descricao, galeria, funcionamento, redessociais, contatos, endereco },
       pessoajuridicaId
     );
     return res.status(201).send(planofree);
@@ -74,12 +74,12 @@ async function findPlanoFreeByUserIdController(req, res) {
 }
 
 async function updatePlanoFreeController(req, res) {
-  const { categoria, carrossel, funcionamento } = req.body;
+  const { categoria, descricao, galeria, funcionamento, redessociais, contatos, endereco } = req.body;
   const { id } = req.params;
   const pessoajuridicaId = req.pessoajuridicaId;
 
   try {
-    await postService.updatePostService(id, categoria, carrossel, funcionamento, pessoajuridicaId);
+    await postService.updatePostService(id, categoria, descricao, galeria, funcionamento, redessociais, contatos, endereco, pessoajuridicaId);
 
     return res.send({ message: "Post successfully updated!" });
   } catch (e) {

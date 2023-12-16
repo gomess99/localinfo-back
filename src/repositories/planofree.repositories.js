@@ -1,7 +1,25 @@
 import PlanoFree from "../models/PlanoFree.js";
 
-function createPlanoFreeRepository(categoria, carrossel, funcionamento, pessoajuridicaId) {
-  return PlanoFree.create({ categoria, carrossel, funcionamento, pessoajuridica: pessoajuridicaId});
+function createPlanoFreeRepository(
+  categoria,
+  descricao,
+  galeria,
+  funcionamento,
+  redessociais,
+  contatos,
+  endereco,
+  pessoajuridicaId
+) {
+  return PlanoFree.create({
+    categoria,
+    descricao,
+    galeria,
+    funcionamento,
+    redessociais,
+    contatos,
+    endereco,
+    pessoajuridica: pessoajuridicaId,
+  });
 }
 
 function findAllPlanoFreeRepository(offset, limit) {
@@ -40,15 +58,28 @@ function findPlanoFreeByUserIdRepository(id) {
     .populate("pessoajuridica");
 }
 
-function updatePlanoFreeRepository(id, categoria, carrossel, funcionamento) {
+function updatePlanoFreeRepository(
+  id,
+  categoria,
+  descricao,
+  galeria,
+  funcionamento,
+  redessociais,
+  contatos,
+  endereco
+) {
   return PlanoFree.findOneAndUpdate(
     {
       _id: id,
     },
     {
       categoria,
-      carrossel,
+      descricao,
+      galeria,
       funcionamento,
+      redessociais,
+      contatos,
+      endereco,
     },
     {
       rawResult: true,
@@ -85,14 +116,12 @@ function likesDeleteRepository(id, pessoajuridicaId) {
     {
       $pull: {
         likes: {
-            pessoajuridicaId: pessoajuridicaId,
+          pessoajuridicaId: pessoajuridicaId,
         },
       },
     }
   );
 }
-
-
 
 export default {
   createPlanoFreeRepository,

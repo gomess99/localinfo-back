@@ -2,16 +2,36 @@ import PlanoFreeRepositories from "../repositories/planofree.repositories.js";
 import PlanoFreeRouter from "../routes/planofree.route.js";
 
 async function createPlanoFreeService(
-  { categoria, carrossel, funcionamento },
+  {
+    categoria,
+    descricao,
+    galeria,
+    funcionamento,
+    redessociais,
+    contatos,
+    endereco,
+  },
   pessoajuridicaId
 ) {
-  if (!categoria || !carrossel || !funcionamento)
+  if (
+    !categoria ||
+    !descricao ||
+    !galeria ||
+    !funcionamento ||
+    !redessociais ||
+    !contatos ||
+    !endereco
+  )
     throw new Error("Submit all fields for registration");
 
   const { id } = await PlanoFreeRepositories.createPlanoFreeRepository(
     categoria,
-    carrossel,
+    descricao,
+    galeria,
     funcionamento,
+    redessociais,
+    contatos,
+    endereco,
     pessoajuridicaId
   );
 
@@ -61,13 +81,16 @@ async function findAllPlanoFreeService(limit, offset, currentUrl) {
       id: planofree._id,
       categoria: planofree.categoria,
       likes: planofree.likes,
-      carrossel: planofree.carrossel,
+      galeria: planofree.galeria,
       funcionamento: planofree.funcionamento,
+      redessociais: planofree.redessociais,
+      contatos: planofree.contatos,
+      endereco: planofree.endereco,
       name: planofree.pessoajuridica.name,
+      username: planofree.pessoajuridica.username,
+      email: planofree.pessoajuridica.email,
+      password: planofree.pessoajuridica.password,
       avatar: planofree.pessoajuridica.avatar,
-      redessociais: planofree.pessoajuridica.redessociais,
-      contatos: planofree.pessoajuridica.contatos,
-      endereco: planofree.pessoajuridica.endereco,
     })),
   };
 }
@@ -82,13 +105,16 @@ async function topPlanoFreeService() {
       id: planofree._id,
       categoria: planofree.categoria,
       likes: planofree.likes,
-      carrossel: planofree.carrossel,
+      galeria: planofree.galeria,
       funcionamento: planofree.funcionamento,
+      redessociais: planofree.redessociais,
+      contatos: planofree.contatos,
+      endereco: planofree.endereco,
       name: planofree.pessoajuridica.name,
+      username: planofree.pessoajuridica.username,
+      email: planofree.pessoajuridica.email,
+      password: planofree.pessoajuridica.password,
       avatar: planofree.pessoajuridica.avatar,
-      redessociais: planofree.pessoajuridica.redessociais,
-      contatos: planofree.pessoajuridica.contatos,
-      endereco: planofree.pessoajuridica.endereco,
     },
   };
 }
@@ -106,13 +132,16 @@ async function searchPlanoFreeService(categoria) {
       id: planofree._id,
       categoria: planofree.categoria,
       likes: planofree.likes,
-      carrossel: planofree.carrossel,
+      galeria: planofree.galeria,
       funcionamento: planofree.funcionamento,
+      redessociais: planofree.redessociais,
+      contatos: planofree.contatos,
+      endereco: planofree.endereco,
       name: planofree.pessoajuridica.name,
+      username: planofree.pessoajuridica.username,
+      email: planofree.pessoajuridica.email,
+      password: planofree.pessoajuridica.password,
       avatar: planofree.pessoajuridica.avatar,
-      redessociais: planofree.pessoajuridica.redessociais,
-      contatos: planofree.pessoajuridica.contatos,
-      endereco: planofree.pessoajuridica.endereco,
     })),
   };
 }
@@ -126,13 +155,16 @@ async function findPlanoFreeByIdService(id) {
     id: planofree._id,
     categoria: planofree.categoria,
     likes: planofree.likes,
-    carrossel: planofree.carrossel,
+    galeria: planofree.galeria,
     funcionamento: planofree.funcionamento,
+    redessociais: planofree.redessociais,
+    contatos: planofree.contatos,
+    endereco: planofree.endereco,
     name: planofree.pessoajuridica.name,
+    username: planofree.pessoajuridica.username,
+    email: planofree.pessoajuridica.email,
+    password: planofree.pessoajuridica.password,
     avatar: planofree.pessoajuridica.avatar,
-    redessociais: planofree.pessoajuridica.redessociais,
-    contatos: planofree.pessoajuridica.contatos,
-    endereco: planofree.pessoajuridica.endereco,
   };
 }
 
@@ -146,13 +178,16 @@ async function findPlanoFreeByUserIdService(id) {
       id: planofree._id,
       categoria: planofree.categoria,
       likes: planofree.likes,
-      carrossel: planofree.carrossel,
+      galeria: planofree.galeria,
       funcionamento: planofree.funcionamento,
+      redessociais: planofree.redessociais,
+      contatos: planofree.contatos,
+      endereco: planofree.endereco,
       name: planofree.pessoajuridica.name,
+      username: planofree.pessoajuridica.username,
+      email: planofree.pessoajuridica.email,
+      password: planofree.pessoajuridica.password,
       avatar: planofree.pessoajuridica.avatar,
-      redessociais: planofree.pessoajuridica.redessociais,
-      contatos: planofree.pessoajuridica.contatos,
-      endereco: planofree.pessoajuridica.endereco,
     })),
   };
 }
@@ -160,11 +195,23 @@ async function findPlanoFreeByUserIdService(id) {
 async function updatePostService(
   id,
   categoria,
-  carrossel,
+  descricao,
+  galeria,
   funcionamento,
+  redessociais,
+  contatos,
+  endereco,
   pessoajuridicaId
 ) {
-  if (!categoria && !carrossel && !funcionamento)
+  if (
+    !categoria &&
+    !descricao &&
+    !galeria &&
+    !funcionamento &&
+    !redessociais &&
+    !contatos &&
+    !endereco
+  )
     throw new Error("Submit at least one field to update the post");
 
   const planofree = await PlanoFreeRepositories.findPlanoFreeByIdRepository(id);
@@ -177,13 +224,17 @@ async function updatePostService(
   await PlanoFreeRepositories.updatePlanoFreeRepository(
     id,
     categoria,
-    carrossel,
-    funcionamento
+    descricao,
+    galeria,
+    funcionamento,
+    redessociais,
+    contatos,
+    endereco
   );
 }
 
 async function deletePlanoFreeService(id, pessoajuridicaId) {
-  const planofree = await PlanoFreeService.findPlanoFreeByIdService(id);
+  const planofree = await PlanoFreeRepositories.deletePlanoFreeRepository(id);
 
   if (!planofree) throw new Error("Post not found");
 

@@ -12,7 +12,7 @@
         {
             "url": "https://api-localinfo.onrender.com/",
             "description": "Render Server"
-        },     
+        },
         {
             "url": "http://localhost:3010",
             "description": "Local Server"
@@ -199,8 +199,6 @@
                 }
             }
         },
-
-
         "/pessoajuridica/create": {
             "post": {
                 "summary": "Create a new legal user",
@@ -221,20 +219,7 @@
                                         "username": "warllen24",
                                         "email": "warllen@gmail.com",
                                         "password": "123",
-                                        "avatar": "https://i.imgur.com/Ry1cb5M.png",
-                                        "redessociais": {
-                                            "instagram": "instagram.com/nome",
-                                            "facebook": "facebook.com/nome",
-                                            "twitter": "twitter.com/nome"
-                                        },
-                                        "contatos": {
-                                            "celular": "987654321",
-                                            "telefone": "987654888"
-                                        },
-                                        "endereco": {
-                                            "endereco1": "Rua Nova, 321, Areal",
-                                            "endereco2": "Rua Maria da Glória, 123, Centro"
-                                        }
+                                        "avatar": "https://i.imgur.com/Ry1cb5M.png"
                                     }
                                 }
                             }
@@ -394,8 +379,6 @@
                 }
             }
         },
-
-
         "/auth/authpf": {
             "post": {
                 "summary": "Login Pessoa Física to Local Info",
@@ -430,7 +413,6 @@
                 }
             }
         },
-
         "/auth/authpj": {
             "post": {
                 "summary": "Login Pessoa Jurídica to Local Info",
@@ -465,8 +447,6 @@
                 }
             }
         },
-
-
         "/planofree/create": {
             "post": {
                 "summary": "Create a new free plan",
@@ -502,6 +482,19 @@
                                             "dia": "Aberto de Terça a Domingo",
                                             "hora": "Das 17hs às 22hs",
                                             "feriado": "Aberto aos feriados"
+                                        },"redessociais": {
+                                            "instagram": "instagram.com/nome",
+                                            "facebook": "facebook.com/nome",
+                                            "twitter": "twitter.com/nome"
+                                        },
+                                        "contatos": {
+                                            "celular": "987654321",
+                                            "telefone": "987654888",
+                                            "email": "emailpro"
+                                        },
+                                        "endereco": {
+                                            "endereco1": "Rua Nova, 321, Areal",
+                                            "endereco2": "Rua Maria da Glória, 123, Centro"
                                         }
                                     }
                                 }
@@ -602,7 +595,6 @@
                     "PlanoFree"
                 ],
                 "parameters": [
-                    
                     {
                         "in": "query",
                         "categoria": "categoria",
@@ -877,8 +869,101 @@
                     },
                     "avatar": {
                         "type": "string"
+                    }
+                }
+            },
+            "PlanoFree": {
+                "type": "object",
+                "properties": {
+                    "pessoajuridica": {
+                        "type": "string"
                     },
-                    "redessociais": {
+                    "categoria": {
+                        "type": "string"
+                    },
+                    "likes": {
+                        "type": "number"
+                    },
+                    "galeria": {
+                        "type": "object",
+                        "properties": {
+                            "img1": {
+                                "type": "string"
+                            },
+                            "img2": {
+                                "type": "string"
+                            },
+                            "img3": {
+                                "type": "string"
+                            },
+                            "img4": {
+                                "type": "string"
+                            },
+                            "img5": {
+                                "type": "string"
+                            },
+                            "img6": {
+                                "type": "string"
+                            },
+                            "img7": {
+                                "type": "string"
+                            },
+                            "img8": {
+                                "type": "string"
+                            },
+                            "img9": {
+                                "type": "string"
+                            },
+                            "img10": {
+                                "type": "string"
+                            },
+                            "img11": {
+                                "type": "string"
+                            },
+                            "img12": {
+                                "type": "string"
+                            },
+                            "img13": {
+                                "type": "string"
+                            },
+                            "img14": {
+                                "type": "string"
+                            },
+                            "img15": {
+                                "type": "string"
+                            },
+                            "img16": {
+                                "type": "string"
+                            },
+                            "img17": {
+                                "type": "string"
+                            },
+                            "img18": {
+                                "type": "string"
+                            },
+                            "img19": {
+                                "type": "string"
+                            },
+                            "img20": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "funcionamento": {
+                        "type": "object",
+                        "properties": {
+                            "dia": {
+                                "type": "string"
+                            },
+                            "hora": {
+                                "type": "string"
+                            },
+                            "feriado": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                    ,"redessociais": {
                         "type": "object",
                         "properties": {
                             "instagram": {
@@ -900,6 +985,9 @@
                             },
                             "telefone": {
                                 "type": "string"
+                            },
+                            "email": {
+                                "type": "string"
                             }
                         }
                     },
@@ -910,54 +998,6 @@
                                 "type": "string"
                             },
                             "endereco2": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
-            },
-            "PlanoFree": {
-                "type": "object",
-                "properties": {
-                    "pessoajuridica": {
-                        "type": "string"
-                    },
-                    "categoria": {
-                        "type": "string"
-                    },
-                    "likes": {
-                        "type": "number"
-                    },
-                    "carrossel": {
-                        "type": "object",
-                        "properties": {
-                            "img1": {
-                                "type": "string"
-                            },
-                            "img2": {
-                                "type": "string"
-                            },
-                            "img3": {
-                                "type": "string"
-                            },
-                            "img4": {
-                                "type": "string"
-                            },
-                            "img5": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "funcionamento": {
-                        "type": "object",
-                        "properties": {
-                            "dia": {
-                                "type": "string"
-                            },
-                            "hora": {
-                                "type": "string"
-                            },
-                            "feriado": {
                                 "type": "string"
                             }
                         }

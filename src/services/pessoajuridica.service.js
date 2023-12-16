@@ -6,26 +6,8 @@ import bcrypt from "bcrypt";
 //sempre que for consultar algo no bd, é preciso a espera e por isso usa-se async
 
 const create = async (body) => {
-  const {
-    name,
-    username,
-    email,
-    password,
-    avatar,
-    redessociais,
-    contatos,
-    endereco,
-  } = body;
-  if (
-    !name ||
-    !username ||
-    !email ||
-    !password ||
-    !avatar ||
-    !redessociais ||
-    !contatos ||
-    !endereco
-  )
+  const { name, username, email, password, avatar } = body;
+  if (!name || !username || !email || !password || !avatar)
     throw new Error("Nem todos os componentes estão preenchidos");
 
   const foundPessoaJuridica =
@@ -53,7 +35,7 @@ const findAll = async () => {
   return pessoajuridicas;
 };
 
-async function findById(pessoajuridicaIdParam, pessoajuridicaIdLogged){
+async function findById(pessoajuridicaIdParam, pessoajuridicaIdLogged) {
   let idParam;
   if (!pessoajuridicaIdParam) {
     pessoajuridicaIdParam = pessoajuridicaIdLogged;
@@ -66,36 +48,20 @@ async function findById(pessoajuridicaIdParam, pessoajuridicaIdLogged){
   const pessoajuridica =
     await pessoajuridicarepositories.findByIdServiceRepository(idParam);
 
-    if (!pessoajuridica) throw new Error("Pessoa Jurídica not found");
+  if (!pessoajuridica) throw new Error("Pessoa Jurídica not found");
 
   return pessoajuridica;
-};
+}
 
 const update = async (body, pessoajuridicaId) => {
-  const {
-    name,
-    username,
-    email,
-    password,
-    avatar,
-    redessociais,
-    contatos,
-    endereco,
-  } = body;
-  if (
-    !name &&
-    !username &&
-    !email &&
-    !password &&
-    !avatar &&
-    !redessociais &&
-    !contatos &&
-    !endereco
-  )
+  const { name, username, email, password, avatar } = body;
+  if (!name && !username && !email && !password && !avatar)
     throw new Error("Necessário pelo menos um campo para realizar o update");
 
-    const pessoajuridica = await pessoajuridicarepositories.findByIdServiceRepository(pessoajuridicaId);
-
+  const pessoajuridica =
+    await pessoajuridicarepositories.findByIdServiceRepository(
+      pessoajuridicaId
+    );
 
   if (pessoajuridica._id != pessoajuridicaId)
     new Error("Você não pode dá update com esse usuário");
