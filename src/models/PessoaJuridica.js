@@ -12,6 +12,11 @@ const PessoaJuridicaSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  cpf: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   email: {
     type: String,
     required: true,

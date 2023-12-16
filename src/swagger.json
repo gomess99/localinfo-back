@@ -217,9 +217,10 @@
                                     "value": {
                                         "name": "Warllen Barreto",
                                         "username": "warllen24",
+                                        "cpf": "12345678912",
                                         "email": "warllen@gmail.com",
                                         "password": "123",
-                                        "avatar": "https://i.imgur.com/Ry1cb5M.png"
+                                        "avatar": "https://cdn-icons-png.flaticon.com/512/5987/5987462.png"
                                     }
                                 }
                             }
@@ -351,7 +352,11 @@
                             "examples": {
                                 "Users": {
                                     "value": {
-                                        "name": "Warllen Silva"
+                                        "name": "Warllen Silva",
+                                        "username": "warllen24",
+                                        "email": "warllennovo@gmail.com",
+                                        "password": "novasenha",
+                                        "avatar": "perfil.png"
                                     }
                                 }
                             }
@@ -470,19 +475,36 @@
                                     "value": {
                                         "pessoajuridica": "",
                                         "categoria": "Alimentação",
+                                        "descricao": "Descrição do estabelecimento",
                                         "likes": [],
-                                        "carrossel": {
+                                        "galeria": {
                                             "img1": "img1.png",
                                             "img2": "img2.png",
                                             "img3": "img3.png",
                                             "img4": "img4.png",
-                                            "img5": "img5.png"
+                                            "img5": "img5.png",
+                                            "img6": "img6.png",
+                                            "img7": "img7.png",
+                                            "img8": "img8.png",
+                                            "img9": "img9.png",
+                                            "img10": "img10.png",
+                                            "img11": "img11.png",
+                                            "img12": "img12.png",
+                                            "img13": "img13.png",
+                                            "img14": "img14.png",
+                                            "img15": "img15.png",
+                                            "img16": "img16.png",
+                                            "img17": "img17.png",
+                                            "img18": "img18.png",
+                                            "img19": "img19.png",
+                                            "img20": "img20.png"
                                         },
                                         "funcionamento": {
                                             "dia": "Aberto de Terça a Domingo",
                                             "hora": "Das 17hs às 22hs",
                                             "feriado": "Aberto aos feriados"
-                                        },"redessociais": {
+                                        },
+                                        "redessociais": {
                                             "instagram": "instagram.com/nome",
                                             "facebook": "facebook.com/nome",
                                             "twitter": "twitter.com/nome"
@@ -725,7 +747,11 @@
                                 "Post": {
                                     "value": {
                                         "categoria": "",
-                                        "carrossel": "",
+                                        "galeria": "",
+                                        "descricao": "",
+                                        "redessociais": "",
+                                        "contatos": "",
+                                        "endereco": "",
                                         "funcionamento": ""
                                     }
                                 }
@@ -861,6 +887,9 @@
                     "username": {
                         "type": "string"
                     },
+                    "cpf": {
+                        "type": "string"
+                    },
                     "email": {
                         "type": "string"
                     },
@@ -879,6 +908,9 @@
                         "type": "string"
                     },
                     "categoria": {
+                        "type": "string"
+                    },
+                    "descricao": {
                         "type": "string"
                     },
                     "likes": {
@@ -962,8 +994,8 @@
                                 "type": "string"
                             }
                         }
-                    }
-                    ,"redessociais": {
+                    },
+                    "redessociais": {
                         "type": "object",
                         "properties": {
                             "instagram": {

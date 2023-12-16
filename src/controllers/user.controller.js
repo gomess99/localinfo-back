@@ -3,9 +3,9 @@ import userService from "../services/pessoajuridica.service.js"
 //sempre que for consultar algo no bd, é preciso a espera e por isso usa-se async
 
 const create = async (req, res) =>{
-    try{const {name, username, email, password, avatar} = req.body;
+    try{const {name, username, cpf, email, password, avatar} = req.body;
 
-    if(!name || !username || !email || !password || !avatar){
+    if(!name || !username || !cpf || !email || !password || !avatar){
         res.status(400).send({message: "Nem todos os componentes estão preenchidos"})
     }
 
@@ -21,6 +21,7 @@ const create = async (req, res) =>{
             id: user._id,
             name,
             username,
+            cpf,
             email,
             avatar,
         },  
@@ -62,9 +63,9 @@ const findById = async (req, res) => {
 
 const update = async (req, res) => {
     try
-    {const {name, username, email, password, avatar} = req.body;
+    {const {name, username, cpf, email, password, avatar} = req.body;
 
-    if(!name && !username && !email && !password && !avatar){
+    if(!name && !username && !cpf  && !email && !password && !avatar){
         res.status(400).send({message: "Necessário pelo menos um campo para realizar o update"})
     }
 
@@ -74,6 +75,7 @@ const update = async (req, res) => {
         id,
         name,
         username,
+        cpf,
         email,
         password,
         avatar
