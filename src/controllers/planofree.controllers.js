@@ -5,13 +5,16 @@ async function createPlanoFreeController(req, res) {
   const pessoajuridicaId = req.pessoajuridicaId;
 
   try {
+    console.log("Request user:", req.user); // Log para verificar o usuário autenticado
+    console.log("Request token:", req.token); // Log para verificar o token
     const planofree = await PlanoFreeService.createPlanoFreeService(
       { categoria, descricao, galeria, funcionamento, redessociais, contatos, endereco },
       pessoajuridicaId
     );
     return res.status(201).send(planofree);
   } catch (e) {
-    res.status(500).send(e.message);
+    console.error("Error creating plano:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 }
 
