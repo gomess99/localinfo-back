@@ -55,7 +55,7 @@ async function findById(pessoajuridicaIdParam, pessoajuridicaIdLogged) {
 
 const update = async (body, pessoajuridicaId) => {
   const { name, username, cpf, email, password, avatar } = body;
-  if (!name && !username && !cpf  && !email && !password && !avatar)
+  if (!name && !username && !cpf && !email && !password && !avatar)
     throw new Error("Necessário pelo menos um campo para realizar o update");
 
   const pessoajuridica =

@@ -6,6 +6,8 @@ import pessoafisicarepositories from "../repositories/pessoafisicarepositories.j
 dotenv.config();
 
 const autMiddlewarePessoaJuridica = async (req, res, next) => {
+  console.log("Auth middleware - Request user:", req.user); // Log para verificar o usuário autenticado
+  console.log("Auth middleware - Request token:", req.token); // Log para verificar o token
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader)
