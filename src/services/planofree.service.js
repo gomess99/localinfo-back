@@ -36,7 +36,7 @@ async function createPlanoFreeService(
   );
 
   return {
-    message: "Post created successfully!",
+    message: "Plano free cadastrado com sucesso!",
     planofree: {
       id,
       categoria,
@@ -55,7 +55,7 @@ async function findAllPlanoFreeService(limit, offset, currentUrl) {
   offset = Number(offset);
 
   if (!limit) {
-    limit = 5;
+    limit = 12;
   }
 
   if (!offset) {
