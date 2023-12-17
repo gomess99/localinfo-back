@@ -152,7 +152,7 @@ const PlanoFreeSchema = new mongoose.Schema({
     type: Array,
     required: true,
   },
-  
+
   galeria: GaleriaSchema,
 
   funcionamento: FuncionamentoSchema,
@@ -168,12 +168,13 @@ const PlanoFreeSchema = new mongoose.Schema({
     ref: "PessoaJuridica",
     required: true,
   },
-  name: {
-    type: String,
-    required: true,
-  },
+  // name: {
+  //   type: String,
+  //   required: true,
+  // },
 });
 
+/*
 // Adicionando um gancho (hook) para pré-salvar, que popula a propriedade "name" antes de salvar
 PlanoFreeSchema.pre("save", async function (next) {
   // Populando o documento com os dados da PessoaJuridica antes de salvar
@@ -182,6 +183,7 @@ PlanoFreeSchema.pre("save", async function (next) {
   this.name = this.pessoajuridica.name;
   next();
 });
+*/
 
 const PlanoFree = mongoose.model("PlanoFree", PlanoFreeSchema);
 

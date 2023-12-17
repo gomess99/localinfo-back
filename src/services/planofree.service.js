@@ -37,7 +37,16 @@ async function createPlanoFreeService(
 
   return {
     message: "Post created successfully!",
-    planofree: { id, categoria, carrossel, funcionamento },
+    planofree: {
+      id,
+      categoria,
+      descricao,
+      galeria,
+      funcionamento,
+      redessociais,
+      contatos,
+      endereco,
+    },
   };
 }
 

@@ -94,7 +94,7 @@ async function deletePlanoFreeController(req, res) {
   try {
     await PlanoFreeService.deletePlanoFreeService(id, pessoajuridicaId);
     return res.send({ message: "Post deleted successfully" });
-  } catch (err) {
+  } catch (e) {
     return res.status(500).send(e.message);
   }
 }
