@@ -55,7 +55,7 @@ async function findAllPlanoFreeService(limit, offset, currentUrl) {
   offset = Number(offset);
 
   if (!limit) {
-    limit = 12;
+    limit = 15;
   }
 
   if (!offset) {
@@ -77,7 +77,7 @@ async function findAllPlanoFreeService(limit, offset, currentUrl) {
   const previousUrl =
     previous != null ? `${currentUrl}?limit=${limit}&offset=${previous}` : null;
 
-  planofree.shift();
+  const trimmedPlanofree = planofree.slice(0);
 
   return {
     nextUrl,
@@ -86,7 +86,7 @@ async function findAllPlanoFreeService(limit, offset, currentUrl) {
     offset,
     total,
 
-    results: planofree.map((planofree) => ({
+    results: trimmedPlanofree.map((planofree) => ({
       id: planofree._id,
       categoria: planofree.categoria,
       likes: planofree.likes,
@@ -103,6 +103,7 @@ async function findAllPlanoFreeService(limit, offset, currentUrl) {
     })),
   };
 }
+
 
 async function topPlanoFreeService() {
   const planofree = await PlanoFreeRouter.topPlanoFreeRepository();

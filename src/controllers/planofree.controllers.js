@@ -5,8 +5,6 @@ async function createPlanoFreeController(req, res) {
   const pessoajuridicaId = req.pessoajuridicaId;
 
   try {
-    console.log("Request user:", req.user); // Log para verificar o usuário autenticado
-    console.log("Request token:", req.token); // Log para verificar o token
     const planofree = await PlanoFreeService.createPlanoFreeService(
       { categoria, descricao, galeria, funcionamento, redessociais, contatos, endereco },
       pessoajuridicaId
