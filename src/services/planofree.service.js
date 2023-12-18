@@ -187,6 +187,7 @@ async function findPlanoFreeByUserIdService(id) {
     planofreeByUser: planofree.map((planofree) => ({
       id: planofree._id,
       categoria: planofree.categoria,
+      descricao: planofree.descricao,
       likes: planofree.likes,
       galeria: planofree.galeria,
       funcionamento: planofree.funcionamento,

@@ -24,7 +24,7 @@ const PessoaFisicaSchema = new mongoose.Schema({
     avatar: {
         type: String,
         required: true,
-    }  
+    }
 })
 
 //faz a criptografia do password
