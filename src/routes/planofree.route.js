@@ -15,8 +15,8 @@ PlanoFreeRouter.get("/:id", autMiddlewarePessoaJuridica, PlanoFreeController.fin
 //obs: para pesquisar normal não precisa de autenticação, mas para pesquisar pelo id é necessário
 
 //rotas de modificação
-PlanoFreeRouter.patch("/:id", autMiddlewarePessoaJuridica, PlanoFreeController.updatePlanoFreeController);
-PlanoFreeRouter.delete("/:id", autMiddlewarePessoaJuridica, PlanoFreeController.deletePlanoFreeController);
+PlanoFreeRouter.patch("/update/:id", autMiddlewarePessoaJuridica, PlanoFreeController.updatePlanoFreeController);
+PlanoFreeRouter.delete("/delete/:id", autMiddlewarePessoaJuridica, PlanoFreeController.deletePlanoFreeController);
 PlanoFreeRouter.patch("/likes/:id", autMiddlewarePessoaJuridica, PlanoFreeController.likePlanoFreeController);
 
 export default PlanoFreeRouter;
