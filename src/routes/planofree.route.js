@@ -17,6 +17,6 @@ PlanoFreeRouter.get("/:id", autMiddlewarePessoaJuridica, PlanoFreeController.fin
 //rotas de modificação
 PlanoFreeRouter.patch("/update/:id", autMiddlewarePessoaJuridica, PlanoFreeController.updatePlanoFreeController);
 PlanoFreeRouter.delete("/delete/:id", autMiddlewarePessoaJuridica, PlanoFreeController.deletePlanoFreeController);
-PlanoFreeRouter.patch("/likes/:id", autMiddlewarePessoaJuridica, PlanoFreeController.likePlanoFreeController);
+PlanoFreeRouter.patch("/:id/likes", autMiddlewarePessoaJuridica, PlanoFreeController.likePlanoFreeController);
 
 export default PlanoFreeRouter;
