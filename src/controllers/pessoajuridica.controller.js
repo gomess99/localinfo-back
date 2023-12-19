@@ -40,29 +40,23 @@ const findById = async (req, res) => {
   }
 };
 
-const update = async (req, res) => {
+async function update(req, res) {
   try {
-    let { name, username, email, password, avatar } = req.body;
-    const pessoajuridicaId = req.pessoajuridicaId;
+    const { name, username, email, password, avatar} = req.body;
+    const { id: userId } = req.params;
+    const userIdLogged = req.userId;
 
-    // Verifique se a senha foi fornecida e não está vazia
-    if (password && typeof password === 'string' && password.trim() !== '') {
-      // Hash da senha
-      const hashedPassword = await bcrypt.hash(password, 10);
-      password = hashedPassword;  // Atribuição apenas se for necessário
-    }
-
-    // Restante da lógica de atualização
     const response = await pessoajuridicaService.update(
       { name, username, email, password, avatar },
-      pessoajuridicaId
+      userId,
+      userIdLogged
     );
 
     return res.send(response);
-  } catch (error) {
-    res.status(500).send({ message: error.message, details: "Erro no update. controller" });
+  } catch (e) {
+    res.status(400).send(e.message);
   }
-};
+}
 
 
 

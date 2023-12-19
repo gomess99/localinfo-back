@@ -1,84 +1,91 @@
-  import pessoajuridicarepositories from "../repositories/pessoajuridicarepositories.js";
-  import authService from "../services/auth.service.js";
+import pessoajuridicarepositories from "../repositories/pessoajuridicarepositories.js";
+import authService from "../services/auth.service.js";
 
-  import bcrypt from "bcrypt";
+import bcrypt from "bcrypt";
 
-  //sempre que for consultar algo no bd, é preciso a espera e por isso usa-se async
+//sempre que for consultar algo no bd, é preciso a espera e por isso usa-se async
 
-  const create = async (body) => {
-    const { name, username, email, password, avatar } = body;
-    if (!name || !username || !email || !password || !avatar)
-      throw new Error("Nem todos os componentes estão preenchidos");
+const create = async (body) => {
+  const { name, username, email, password, avatar } = body;
+  if (!name || !username || !email || !password || !avatar)
+    throw new Error("Nem todos os componentes estão preenchidos");
 
-    const foundPessoaJuridica =
-      await pessoajuridicarepositories.findByEmailPessoaJuridicaRepository(email);
-    if (foundPessoaJuridica) throw new Error("Perfil Jurídico existente");
+  const foundPessoaJuridica =
+    await pessoajuridicarepositories.findByEmailPessoaJuridicaRepository(email);
+  if (foundPessoaJuridica) throw new Error("Perfil Jurídico existente");
 
-    const pessoajuridica =
-      await pessoajuridicarepositories.createServiceRepository(body); //cria o usuário no BD
-    if (!pessoajuridica) throw new Error("Erro ao criar pessoa juridica");
+  const pessoajuridica =
+    await pessoajuridicarepositories.createServiceRepository(body); //cria o usuário no BD
+  if (!pessoajuridica) throw new Error("Erro ao criar pessoa juridica");
 
-    const token = authService.generateToken(pessoajuridica.id);
+  const token = authService.generateToken(pessoajuridica.id);
 
-    return token;
-  };
+  return token;
+};
 
-  //relação assincrona usa-se async
+//relação assincrona usa-se async
 
-  const findAll = async () => {
-    const pessoajuridicas =
-      await pessoajuridicarepositories.findAllServiceRepository();
+const findAll = async () => {
+  const pessoajuridicas =
+    await pessoajuridicarepositories.findAllServiceRepository();
 
-    if (pessoajuridicas.length === 0)
-      throw new Error("Nenhuma Pessoa Jurídica cadastrado");
+  if (pessoajuridicas.length === 0)
+    throw new Error("Nenhuma Pessoa Jurídica cadastrado");
 
-    return pessoajuridicas;
-  };
+  return pessoajuridicas;
+};
 
-  async function findById(pessoajuridicaIdParam, pessoajuridicaIdLogged) {
-    let idParam;
-    if (!pessoajuridicaIdParam) {
-      pessoajuridicaIdParam = pessoajuridicaIdLogged;
-      idParam = pessoajuridicaIdParam;
-    } else {
-      idParam = pessoajuridicaIdParam;
-    }
-    if (!idParam)
-      throw new Error("Use um ID para encontrar o perfil da pessoa Juridica");
-    const pessoajuridica =
-      await pessoajuridicarepositories.findByIdServiceRepository(idParam);
-
-    if (!pessoajuridica) throw new Error("Pessoa Jurídica not found");
-
-    return pessoajuridica;
+async function findById(pessoajuridicaIdParam, pessoajuridicaIdLogged) {
+  let idParam;
+  if (!pessoajuridicaIdParam) {
+    pessoajuridicaIdParam = pessoajuridicaIdLogged;
+    idParam = pessoajuridicaIdParam;
+  } else {
+    idParam = pessoajuridicaIdParam;
   }
+  if (!idParam)
+    throw new Error("Use um ID para encontrar o perfil da pessoa Juridica");
+  const pessoajuridica =
+    await pessoajuridicarepositories.findByIdServiceRepository(idParam);
 
-  const update = async (body, pessoajuridicaId) => {
-    const { name, username, email, password, avatar } = body;
-    if (!name && !username && !email && !password && !avatar)
-      throw new Error("Necessário pelo menos um campo para realizar o update");
+  if (!pessoajuridica) throw new Error("Pessoa Jurídica not found");
 
-    const pessoajuridica =
-      await pessoajuridicarepositories.findByIdServiceRepository(
-        pessoajuridicaId
-      );
+  return pessoajuridica;
+}
 
-    if (pessoajuridica._id != pessoajuridicaId)
-      new Error("Você não pode dá update com esse usuário");
+async function update(
+  { name, username, email, password, avatar },
+  pessoajuridicaId,
+  userIdLogged
+) {
+  if (!name && !username && !email && !password && !avatar)
+    throw new Error("Necessário pelo menos um campo para realizar o update");
 
-    if (password) password = await bcrypt.hash(password, 10);
-
-    await pessoajuridicarepositories.updateServiceRepository(
-      pessoajuridicaId,
-      body
+  const pessoajuridica =
+    await pessoajuridicarepositories.findByIdServiceRepository(
+      pessoajuridicaId
     );
 
-    return { message: "Pessoa Jurídica atualizado com sucesso" };
-  };
+  if (pessoajuridica._id != userIdLogged)
+    new Error("Você não pode dá update com esse usuário");
 
-  export default {
-    create,
-    findAll,
-    findById,
-    update,
-  };
+  if (password) password = await bcrypt.hash(password, 10);
+
+  await pessoajuridicarepositories.updateServiceRepository(
+    pessoajuridicaId,
+    name,
+    username,
+    email,
+    password,
+    avatar
+  );
+
+  return { message: "Pessoa Jurídica atualizado com sucesso" };
+}
+
+export default {
+  create,
+  findAll,
+  findById,
+  update,
+};
