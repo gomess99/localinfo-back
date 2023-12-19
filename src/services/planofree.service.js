@@ -162,19 +162,22 @@ async function findPlanoFreeByIdService(id) {
   if (!planofree) throw new Error("Plano not found");
 
   return {
-    id: planofree._id,
-    categoria: planofree.categoria,
-    likes: planofree.likes,
-    galeria: planofree.galeria,
-    funcionamento: planofree.funcionamento,
-    redessociais: planofree.redessociais,
-    contatos: planofree.contatos,
-    endereco: planofree.endereco,
-    name: planofree.pessoajuridica.name,
-    username: planofree.pessoajuridica.username,
-    email: planofree.pessoajuridica.email,
-    password: planofree.pessoajuridica.password,
-    avatar: planofree.pessoajuridica.avatar,
+    planofreeById: {
+      id: planofree._id,
+      categoria: planofree.categoria,
+      descricao: planofree.descricao,
+      likes: planofree.likes,
+      galeria: planofree.galeria,
+      funcionamento: planofree.funcionamento,
+      redessociais: planofree.redessociais,
+      contatos: planofree.contatos,
+      endereco: planofree.endereco,
+      name: planofree.pessoajuridica.name,
+      username: planofree.pessoajuridica.username,
+      email: planofree.pessoajuridica.email,
+      password: planofree.pessoajuridica.password,
+      avatar: planofree.pessoajuridica.avatar,
+    },
   };
 }
 

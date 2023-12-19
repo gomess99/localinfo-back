@@ -814,7 +814,7 @@
                 }
             }
         },
-        "/planofree/{id}/like": {
+        "/planofree/like/{id}": {
             "patch": {
                 "summary": "Like a free plan",
                 "description": "Route responsible for liking a free plan",
