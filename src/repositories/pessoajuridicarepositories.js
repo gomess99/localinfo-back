@@ -8,18 +8,14 @@ const findAllServiceRepository = () => PessoaJuridica.find();
 
 const findByIdServiceRepository = (idPessoaJuridica) => PessoaJuridica.findById(idPessoaJuridica);
 
-const updateServiceRepository = (
-  id,body
-) =>
-  PessoaJuridica.findOneAndUpdate(
+const updateServiceRepository = async (id, { name, username, email, password, avatar }) => {
+  return PessoaJuridica.findOneAndUpdate(
     { _id: id },
-    {
-      body,
-    },
-    {
-      rawResult: true,
-    }
+    { name, username, email, password, avatar },
+    { rawResult: true }
   );
+};
+
 
 export default {
   createServiceRepository,

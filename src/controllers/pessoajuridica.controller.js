@@ -1,4 +1,5 @@
 import pessoajuridicaService from "../services/pessoajuridica.service.js";
+import bcrypt from "bcrypt";
 
 //sempre que for consultar algo no bd, é preciso a espera e por isso usa-se async
 
@@ -40,16 +41,31 @@ const findById = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  const body = req.body;
-  const pessoajuridicaId = req.pessoajuridicaId;
   try {
-    const response = await pessoajuridicaService.update(body, pessoajuridicaId);
+    let { name, username, email, password, avatar } = req.body;
+    const pessoajuridicaId = req.pessoajuridicaId;
+
+    // Verifique se a senha foi fornecida e não está vazia
+    if (password && typeof password === 'string' && password.trim() !== '') {
+      // Hash da senha
+      const hashedPassword = await bcrypt.hash(password, 10);
+      password = hashedPassword;  // Atribuição apenas se for necessário
+    }
+
+    // Restante da lógica de atualização
+    const response = await pessoajuridicaService.update(
+      { name, username, email, password, avatar },
+      pessoajuridicaId
+    );
 
     return res.send(response);
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    res.status(500).send({ message: error.message, details: "Erro no update. controller" });
   }
 };
+
+
+
 
 export default {
   create,

@@ -14,6 +14,6 @@ PessoaJuridicaRouter.get("/", pessoajuridicaController.findAll) //busca todo use
 
 PessoaJuridicaRouter.use(validPessoaJuridica);
 PessoaJuridicaRouter.get("/findById/:id?", pessoajuridicaController.findById) //busca users id
-PessoaJuridicaRouter.patch("/:id", pessoajuridicaController.update) //atualiza user id
+PessoaJuridicaRouter.patch("/update/:id", pessoajuridicaController.update) //atualiza user id
 
 export default PessoaJuridicaRouter;
