@@ -58,29 +58,12 @@ function findPlanoFreeByUserIdRepository(id) {
     .populate("pessoajuridica");
 }
 
-function updatePlanoFreeRepository(
-  id,
-  categoria,
-  descricao,
-  galeria,
-  funcionamento,
-  redessociais,
-  contatos,
-  endereco
-) {
+async function updatePlanoFreeRepository(id, updateFields) {
   return PlanoFree.findOneAndUpdate(
     {
       _id: id,
     },
-    {
-      categoria,
-      descricao,
-      galeria,
-      funcionamento,
-      redessociais,
-      contatos,
-      endereco,
-    },
+    updateFields,
     {
       rawResult: true,
     }

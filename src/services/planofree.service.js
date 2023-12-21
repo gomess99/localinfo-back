@@ -104,7 +104,6 @@ async function findAllPlanoFreeService(limit, offset, currentUrl) {
   };
 }
 
-
 async function topPlanoFreeService() {
   const planofree = await PlanoFreeRouter.topPlanoFreeRepository();
 
@@ -206,7 +205,7 @@ async function findPlanoFreeByUserIdService(id) {
   };
 }
 
-async function updatePostService(
+async function updatePlanoFreeService(
   id,
   categoria,
   descricao,
@@ -217,34 +216,42 @@ async function updatePostService(
   endereco,
   pessoajuridicaId
 ) {
-  if (
-    !categoria &&
-    !descricao &&
-    !galeria &&
-    !funcionamento &&
-    !redessociais &&
-    !contatos &&
-    !endereco
-  )
-    throw new Error("Submit at least one field to update the post");
+  const updateFields = {};
 
-  const planofree = await PlanoFreeRepositories.findPlanoFreeByIdRepository(id);
-
-  if (!planofree) throw new Error("Post not found");
-
-  if (planofree.pessoajuridica._id != pessoajuridicaId)
-    throw new Error("You didn't create this post");
-
-  await PlanoFreeRepositories.updatePlanoFreeRepository(
-    id,
+  if (categoria) updateFields.categoria = categoria;
+  if (descricao) updateFields.descricao = descricao;
+  if (galeria) updateFields.galeria = galeria;
+  if (funcionamento) updateFields.funcionamento = funcionamento;
+  if (redessociais) updateFields.redessociais = redessociais;
+  if (contatos) updateFields.contatos = contatos;
+  if (endereco) updateFields.endereco = endereco;
+  console.log(
+    "Dados recebidos no serviço:",
     categoria,
     descricao,
     galeria,
     funcionamento,
     redessociais,
     contatos,
-    endereco
+    endereco,
+    pessoajuridicaId
   );
+
+  if (Object.keys(updateFields).length === 0) {
+    throw new Error("Submit at least one field to update the post");
+  }
+
+  const planofree = await PlanoFreeRepositories.findPlanoFreeByIdRepository(id);
+
+  if (!planofree) {
+    throw new Error("Post not found");
+  }
+
+  if (planofree.pessoajuridica._id != pessoajuridicaId) {
+    throw new Error("You didn't create this post");
+  }
+
+  await PlanoFreeRepositories.updatePlanoFreeRepository(id, updateFields);
 }
 
 async function deletePlanoFreeService(id, pessoajuridicaId) {
@@ -279,7 +286,7 @@ export default {
   searchPlanoFreeService,
   findPlanoFreeByIdService,
   findPlanoFreeByUserIdService,
-  updatePostService,
+  updatePlanoFreeService,
   deletePlanoFreeService,
   likePlanoFreeService,
 };

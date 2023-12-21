@@ -75,12 +75,31 @@ async function findPlanoFreeByUserIdController(req, res) {
 }
 
 async function updatePlanoFreeController(req, res) {
-  const { categoria, descricao, galeria, funcionamento, redessociais, contatos, endereco } = req.body;
+  const {
+    categoria,
+    descricao,
+    galeria,
+    funcionamento,
+    redessociais,
+    contatos,
+    endereco,
+  } = req.body;
   const { id } = req.params;
   const pessoajuridicaId = req.pessoajuridicaId;
 
   try {
-    await postService.updatePostService(id, categoria, descricao, galeria, funcionamento, redessociais, contatos, endereco, pessoajuridicaId);
+    await PlanoFreeService.updatePlanoFreeService(
+      id,
+      categoria,
+      descricao,
+      galeria,
+      funcionamento,
+      redessociais,
+      contatos,
+      endereco,
+      pessoajuridicaId
+    );
+    console.log("Dados recebidos no controller:", req.body);
 
     return res.send({ message: "Post successfully updated!" });
   } catch (e) {
