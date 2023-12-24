@@ -86,7 +86,7 @@ function likesRepository(id, pessoajuridicaId) {
       },
     },
     {
-      rawResult: true,
+      includeResultMetadata: true,
     }
   );
 }
